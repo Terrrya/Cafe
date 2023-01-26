@@ -17,6 +17,11 @@ class Employee(AbstractUser):
         null=True
     )
 
+    class Meta:
+        verbose_name = "employee"
+        verbose_name_plural = "employees"
+        ordering = ["last_name", "first_name"]
+
 
 class DishType(models.Model):
     name = models.CharField(max_length=255)
