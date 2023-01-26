@@ -46,6 +46,12 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=255)
     amount_of = models.FloatField()
 
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
 
 class Dish(models.Model):
     name = models.CharField(max_length=255)
