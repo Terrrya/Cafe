@@ -98,3 +98,10 @@ class Order(models.Model):
         for dish in self.dishes.all():
             res += dish.price
         return int(res)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Order at {self.created_at} " \
+               f"({self.employee.first_name} {self.employee.last_name})"
