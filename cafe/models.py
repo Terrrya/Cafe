@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from decimal import *
 
 
 class Position(models.Model):
@@ -85,9 +86,15 @@ class Order(models.Model):
         related_name="orders"
     )
     delivery = models.BooleanField(default=False)
-    total_price = models.DecimalField(max_digits=6, decimal_places=2)
     employee = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="orders"
     )
+
+    @property
+    def total_price(self):
+        res = Decimal(0)
+        for dish in self.dishes.all():
+            res += dish.price
+        return int(res)
