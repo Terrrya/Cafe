@@ -12,7 +12,9 @@ class Employee(AbstractUser):
     position = models.ForeignKey(
         to=Position,
         on_delete=models.CASCADE,
-        related_name="employees"
+        related_name="employees",
+        blank=True,
+        null=True
     )
 
 
