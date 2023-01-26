@@ -4,7 +4,6 @@ from django.contrib.auth.models import Group
 from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order
 
 admin.site.register(DishType)
-admin.site.register(Ingredient)
 admin.site.register(Dish)
 admin.site.register(Order)
 admin.site.unregister(Group)
@@ -36,3 +35,7 @@ class EmployeeAdmin(UserAdmin):
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     list_display = ["name", "salary"]
+
+@admin.register(Ingredient)
+class IngredientAdmin(admin.ModelAdmin):
+    list_display = ["name", "amount_of"]
