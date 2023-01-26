@@ -7,6 +7,12 @@ class Position(models.Model):
     name = models.CharField(max_length=255)
     salary = models.IntegerField()
 
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
 
 class Employee(AbstractUser):
     position = models.ForeignKey(
