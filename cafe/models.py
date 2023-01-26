@@ -47,6 +47,9 @@ class Dish(models.Model):
     description = models.TextField()
     recipe = models.TextField()
 
+    class Meta():
+        verbose_name_plural = "dishes"
+
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
