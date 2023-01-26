@@ -68,6 +68,12 @@ class Dish(models.Model):
     description = models.TextField()
     recipe = models.TextField()
 
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
     class Meta():
         verbose_name_plural = "dishes"
 
