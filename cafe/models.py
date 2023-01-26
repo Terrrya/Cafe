@@ -94,10 +94,10 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        res = Decimal(0)
+        res = 0
         for dish in self.dishes.all():
             res += dish.price
-        return int(res)
+        return res
 
     class Meta:
         ordering = ["-created_at"]

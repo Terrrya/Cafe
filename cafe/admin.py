@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order
 
 admin.site.register(DishType)
-admin.site.register(Order)
+# admin.site.register(Order)
 admin.site.unregister(Group)
 
 
@@ -40,6 +40,12 @@ class PositionAdmin(admin.ModelAdmin):
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ["name", "amount_of"]
 
+
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
     list_display = ["name", "dish_type", "price", "recipe"]
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ["created_at", "delivery", "total_price", "employee"]
