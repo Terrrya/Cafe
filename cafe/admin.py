@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order
 
 admin.site.register(Position)
@@ -7,6 +8,7 @@ admin.site.register(DishType)
 admin.site.register(Ingredient)
 admin.site.register(Dish)
 admin.site.register(Order)
+admin.site.unregister(Group)
 
 
 @admin.register(Employee)
