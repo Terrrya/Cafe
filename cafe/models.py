@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-from decimal import *
 
 
 class Position(models.Model):
@@ -71,12 +70,10 @@ class Dish(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name_plural = "dishes"
 
     def __str__(self):
         return self.name
-
-    class Meta():
-        verbose_name_plural = "dishes"
 
 
 class Order(models.Model):
