@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from cafe.models import Dish, Position, DishType, Ingredient, Employee, Order
+from django.urls import reverse_lazy
 
 
 def index(request):
@@ -13,8 +14,25 @@ def index(request):
     return render(request, "cafe/index.html", context=context)
 
 
+class PositionCreateView(generic.CreateView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:position-list")
+
+
 class PositionListView(generic.ListView):
     model = Position
+
+
+class PositionUpdateView(generic.UpdateView):
+    model = Position
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:position-list")
+
+
+class PositionDeleteView(generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy("cafe:position-list")
 
 
 class DishTypeListView(generic.ListView):
