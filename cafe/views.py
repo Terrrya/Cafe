@@ -29,3 +29,7 @@ class IngredientListView(generic.ListView):
 
 class EmployeeListView(generic.ListView):
     model = Employee
+
+
+class DishListView(generic.ListView):
+    model = Dish
