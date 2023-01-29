@@ -1,9 +1,10 @@
 from django.urls import path
-from cafe.views import index
+from cafe.views import index, PositionListView
 
 
 app_name = "cafe"
 
 urlpatterns = [
-    path("", index, name="index")
+    path("", index, name="index"),
+    path("positions/", PositionListView.as_view(), name="position-list")
 ]

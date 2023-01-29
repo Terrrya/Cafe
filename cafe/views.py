@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-from cafe.models import Dish
+from django.views import generic
+from cafe.models import Dish, Position
 
 
 def index(request):
@@ -11,3 +11,7 @@ def index(request):
         "num_soup": Dish.objects.filter(dish_type__name="soup").count()
     }
     return render(request, "cafe/index.html", context=context)
+
+
+class PositionListView(generic.ListView):
+    model = Position
