@@ -1,6 +1,6 @@
 from django.urls import path
 from cafe.views import index, PositionListView, DishTypeListView, \
-    IngredientListView, EmployeeListView, DishListView
+    IngredientListView, EmployeeListView, DishListView, OrderListView
 
 app_name = "cafe"
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path("ingredients/", IngredientListView.as_view(), name="ingredient-list"),
     path("employees/", EmployeeListView.as_view(), name="employee-list"),
     path("dishes/", DishListView.as_view(), name="dish-list"),
+    path("orders/", OrderListView.as_view(), name="order-list"),
 ]
