@@ -110,8 +110,29 @@ class EmployeeDeleteView(generic.DeleteView):
     success_url = reverse_lazy("cafe:employee-list")
 
 
+class DishCreateView(generic.CreateView):
+    model = Dish
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:dish-list")
+
+
 class DishListView(generic.ListView):
     model = Dish
+
+
+class DishDetailView(generic.DetailView):
+    model = Dish
+
+
+class DishUpdateView(generic.UpdateView):
+    model = Dish
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:dish-list")
+
+
+class DishDeleteView(generic.DeleteView):
+    model = Dish
+    success_url = reverse_lazy("cafe:dish-list")
 
 
 class OrderListView(generic.ListView):
