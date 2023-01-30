@@ -61,8 +61,25 @@ class DishTypeDeleteView(generic.DeleteView):
     success_url = reverse_lazy("cafe:dish-type-list")
 
 
+class IngredientCreateView(generic.CreateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:ingredient-list")
+
+
 class IngredientListView(generic.ListView):
     model = Ingredient
+
+
+class IngredientUpdateView(generic.UpdateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:ingredient-list")
+
+
+class IngredientDeleteView(generic.DeleteView):
+    model = Ingredient
+    success_url = reverse_lazy("cafe:ingredient-list")
 
 
 class EmployeeListView(generic.ListView):
