@@ -3,7 +3,9 @@ from cafe.views import index, PositionListView, DishTypeListView, \
     IngredientListView, EmployeeListView, DishListView, OrderListView, \
     PositionCreateView, PositionDeleteView, PositionUpdateView, \
     DishTypeCreateView, DishTypeUpdateView, DishTypeDeleteView, \
-    IngredientCreateView, IngredientUpdateView, IngredientDeleteView
+    IngredientCreateView, IngredientUpdateView, IngredientDeleteView, \
+    EmployeeCreateView, EmployeeDetailView, EmployeeUpdateView, \
+    EmployeeDeleteView
 
 app_name = "cafe"
 
@@ -21,7 +23,11 @@ urlpatterns = [
     path("ingredients/", IngredientListView.as_view(), name="ingredient-list"),
     path("ingredients/<int:pk>/update", IngredientUpdateView.as_view(), name="ingredient-update"),
     path("ingredients/<int:pk>/delete", IngredientDeleteView.as_view(), name="ingredient-delete"),
+    path("employees/create/", EmployeeCreateView.as_view(), name="employee-create"),
     path("employees/", EmployeeListView.as_view(), name="employee-list"),
+    path("employees/<int:pk>/", EmployeeDetailView.as_view(), name="employee-detail"),
+    path("employees/<int:pk>/update", EmployeeUpdateView.as_view(), name="employee-update"),
+    path("employees/<int:pk>/delete", EmployeeDeleteView.as_view(), name="employee-delete"),
     path("dishes/", DishListView.as_view(), name="dish-list"),
     path("orders/", OrderListView.as_view(), name="order-list"),
 ]
