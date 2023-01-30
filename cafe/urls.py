@@ -1,5 +1,6 @@
 from django.urls import path
-from cafe.views import index, PositionListView, DishTypeListView, \
+from django.contrib.auth import views
+from cafe.views import PositionListView, DishTypeListView, \
     IngredientListView, EmployeeListView, DishListView, OrderListView, \
     PositionCreateView, PositionDeleteView, PositionUpdateView, \
     DishTypeCreateView, DishTypeUpdateView, DishTypeDeleteView, \
@@ -7,12 +8,13 @@ from cafe.views import index, PositionListView, DishTypeListView, \
     EmployeeCreateView, EmployeeDetailView, EmployeeUpdateView, \
     EmployeeDeleteView, DishCreateView, DishDetailView, DishUpdateView, \
     DishDeleteView, OrderCreateView, OrderDetailView, OrderUpdateView, \
-    OrderDeleteView
+    OrderDeleteView, home
 
 app_name = "cafe"
 
 urlpatterns = [
-    path("home/", index, name="index"),
+    path("", views.LoginView.as_view(), name="index"),
+    path("home/", home, name="home"),
     path("positions/create/", PositionCreateView.as_view(), name="position-create"),
     path("positions/", PositionListView.as_view(), name="position-list"),
     path("positions/<int:pk>/update/", PositionUpdateView.as_view(), name="position-update"),
