@@ -62,11 +62,11 @@ class Dish(models.Model):
     )
     ingredients = models.ManyToManyField(
         to=Ingredient,
-        related_name="dishes"
+        related_name="dishes",
+        through="Recipe"
     )
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
-    recipe = models.TextField()
 
     class Meta:
         ordering = ["name"]
@@ -74,6 +74,20 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Recipe(models.Model):
+    dish = models.OneToOneField(
+        to=Dish,
+        on_delete=models.CASCADE,
+        related_name="dish"
+    )
+    ingredients = models.ForeignKey(
+        to=Ingredient,
+        on_delete=models.CASCADE,
+        related_name="recipes"
+    )
+    amount = models.FloatField(default=0)
 
 
 class Order(models.Model):
@@ -91,10 +105,7 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        res = 0
-        for dish in self.dishes.all():
-            res += dish.price
-        return res
+        return sum(price for price in self.dishes.all())
 
     class Meta:
         ordering = ["-created_at"]
