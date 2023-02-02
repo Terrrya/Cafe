@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views import generic
 
 from cafe.forms import EmployeeForm
-from cafe.models import Dish, Position, DishType, Ingredient, Employee, Order
+from cafe.models import Dish, Position, DishType, Ingredient, Employee, Order, \
+    Recipe
 from django.urls import reverse_lazy
 
 
@@ -169,3 +170,24 @@ class OrderUpdateView(generic.UpdateView):
 class OrderDeleteView(generic.DeleteView):
     model = Order
     success_url = reverse_lazy("cafe:order-list")
+
+
+class RecipeCreateView(generic.CreateView):
+    model = Recipe
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:recipe-list")
+
+
+class RecipeListView(generic.ListView):
+    model = Recipe
+
+
+class RecipeUpdateView(generic.UpdateView):
+    model = Recipe
+    fields = "__all__"
+    success_url = reverse_lazy("cafe:recipe-list")
+
+
+class RecipeDeleteView(generic.DeleteView):
+    model = Recipe
+    success_url = reverse_lazy("cafe:recipe-list")
