@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order
+from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order, \
+    Recipe
 
 admin.site.register(DishType)
-# admin.site.register(Order)
+# admin.site.register(Recipe)
 admin.site.unregister(Group)
 
 
@@ -43,9 +44,14 @@ class IngredientAdmin(admin.ModelAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = ["name", "dish_type", "price", "recipe"]
+    list_display = ["name", "dish_type", "price"]
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ["created_at", "delivery", "total_price", "employee"]
+
+
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ["dish", "ingredients", "amount"]

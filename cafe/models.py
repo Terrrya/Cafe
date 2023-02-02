@@ -54,6 +54,7 @@ class Ingredient(models.Model):
 
 
 class Dish(models.Model):
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
     name = models.CharField(max_length=255)
     dish_type = models.ForeignKey(
         to=DishType,
@@ -77,10 +78,10 @@ class Dish(models.Model):
 
 
 class Recipe(models.Model):
-    dish = models.OneToOneField(
+    dish = models.ForeignKey(
         to=Dish,
         on_delete=models.CASCADE,
-        related_name="dish"
+        related_name="recipe"
     )
     ingredients = models.ForeignKey(
         to=Ingredient,

@@ -1,5 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views
+from django.conf.urls.static import static
+from django.conf import settings
 from cafe.views import PositionListView, DishTypeListView, \
     IngredientListView, EmployeeListView, DishListView, OrderListView, \
     PositionCreateView, PositionDeleteView, PositionUpdateView, \
@@ -42,4 +44,4 @@ urlpatterns = [
     path("orders/<int:pk>/", OrderDetailView.as_view(), name="order-detail"),
     path("orders/<int:pk>/update/", OrderUpdateView.as_view(), name="order-update"),
     path("orders/<int:pk>/delete/", OrderDeleteView.as_view(), name="order-delete"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
