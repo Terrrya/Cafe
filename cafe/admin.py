@@ -5,7 +5,7 @@ from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order, \
     Recipe
 
 admin.site.register(DishType)
-# admin.site.register(Recipe)
+# admin.site.register(Dish)
 admin.site.unregister(Group)
 
 
@@ -32,6 +32,17 @@ class EmployeeAdmin(UserAdmin):
     )
 
 
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ["dish", "ingredients", "amount"]
+    extra = 1
+
+
+class RecipeInline(admin.TabularInline):
+    model = Recipe
+    extra = 1
+
+
 @admin.register(Position)
 class PositionAdmin(admin.ModelAdmin):
     list_display = ["name", "salary"]
@@ -44,14 +55,10 @@ class IngredientAdmin(admin.ModelAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = ["name", "dish_type", "price"]
+    list_display = ["name", "dish_type", "price", "description"]
+    inlines = [RecipeInline]
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ["created_at", "delivery", "total_price", "employee"]
-
-
-@admin.register(Recipe)
-class RecipeAdmin(admin.ModelAdmin):
-    list_display = ["dish", "ingredients", "amount"]
