@@ -34,8 +34,7 @@ class EmployeeAdmin(UserAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ["dish", "ingredients", "amount"]
-    extra = 1
+    list_display = ["dish", "ingredient", "amount"]
 
 
 class RecipeInline(admin.TabularInline):
