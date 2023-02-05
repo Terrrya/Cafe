@@ -22,6 +22,8 @@ class Employee(AbstractUser):
         blank=True,
         null=True
     )
+    hiring_date = models.DateField(auto_now_add=True)
+    date_of_dismissal = models.DateField(blank=True)
 
     class Meta:
         verbose_name = "employee"
