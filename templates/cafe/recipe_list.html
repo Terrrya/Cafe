@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load queryset_filter %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top m-2 pt-1">
+      <h3 class="px-5">Recipe Book</h3>
+    </div>
+    <div class="card-body">
+      <table  class="table table-striped">
+        <tr>
+          <th>Dish name</th>
+          <th>Ingredients</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% for dish in dishes %}
+          <tr>
+            <td>
+              {{ dish.name }}
+            </td>
+            <td>
+              {% for recipe in recipe_list|queryset_filter_dish:dish %}
+                <p>{{ recipe.ingredient.name }}: {{ recipe.amount}}</p>
+              {% endfor %}
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:dish-update' pk=dish.id %}">Update dish</a>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:dish-delete' pk=dish.id %}">Delete dish</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}

@@ -10,8 +10,8 @@ from cafe.views import PositionListView, DishTypeListView, \
     EmployeeCreateView, EmployeeDetailView, EmployeeUpdateView, \
     EmployeeDeleteView, DishCreateView, DishDetailView, DishUpdateView, \
     DishDeleteView, OrderCreateView, OrderDetailView, OrderUpdateView, \
-    OrderDeleteView, home, RecipeCreateView, RecipeListView, RecipeUpdateView, \
-    RecipeDeleteView
+    OrderDeleteView, home, RecipeListView, RecipeUpdateView, \
+    RecipeView, RecipeDeleteView
 
 app_name = "cafe"
 
@@ -45,8 +45,8 @@ urlpatterns = [
     path("orders/<int:pk>/", OrderDetailView.as_view(), name="order-detail"),
     path("orders/<int:pk>/update/", OrderUpdateView.as_view(), name="order-update"),
     path("orders/<int:pk>/delete/", OrderDeleteView.as_view(), name="order-delete"),
-    path("recipes/create/", RecipeCreateView.as_view(), name="recipe-create"),
-    path("recipes/", RecipeListView.as_view(), name="recipe-list"),
-    path("recipes/<int:pk>/update/", RecipeUpdateView.as_view(), name="recipe-update"),
-    path("recipes/<int:pk>/delete/", RecipeDeleteView.as_view(), name="recipe-delete"),
+    path("dish/<int:pk>/recipe/", RecipeView.as_view(), name="dish-recipe"),
+    path("dish-recipes/", RecipeListView.as_view(), name="dish-recipe-list"),
+    path("dish/recipe-ingredient/<int:pk>/update/", RecipeUpdateView.as_view(), name="recipe-ingredient-update"),
+    path("dish/recipe-ingredient/<int:pk>/delete/", RecipeDeleteView.as_view(), name="recipe-ingredient-delete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

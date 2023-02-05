@@ -33,7 +33,7 @@ class Employee(AbstractUser):
 
 
 class DishType(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     class Meta:
         ordering = ["name"]
@@ -43,7 +43,7 @@ class DishType(models.Model):
 
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     amount_of = models.FloatField()
 
     class Meta:
@@ -55,7 +55,7 @@ class Ingredient(models.Model):
 
 class Dish(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="images/")
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     dish_type = models.ForeignKey(
         to=DishType,
         on_delete=models.CASCADE,
@@ -64,7 +64,8 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(
         to=Ingredient,
         related_name="dishes",
-        through="Recipe"
+        through="Recipe",
+        through_fields=["dish", "ingredient"]
     )
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
@@ -83,12 +84,15 @@ class Recipe(models.Model):
         on_delete=models.CASCADE,
         related_name="recipe"
     )
-    ingredients = models.ForeignKey(
+    ingredient = models.ForeignKey(
         to=Ingredient,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="recipes"
     )
-    amount = models.FloatField(default=0)
+    amount = models.FloatField()
+
+    class Meta:
+        unique_together = ["dish", "ingredient"]
 
 
 class Order(models.Model):
