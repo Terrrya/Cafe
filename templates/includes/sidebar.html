@@ -1,0 +1,14 @@
+{% include "includes/svg.html" %}
+{% if request.user.is_authenticated %}
+  {% if request.user.is_staff %}
+    {% include "includes/admin_actions.html" %}
+  {% elif "cook" in request.user.position.name|lower %}
+    {% include "includes/cook_actions.html" %}
+  {% elif "manager" in request.user.position.name|lower %}
+    {% include "includes/manager_actions.html" %}
+  {% elif "waiter" in request.user.position.name|lower %}
+    {% include "includes/waiter_actions.html" %}
+  {% elif "storekeeper" in request.user.position.name|lower %}
+    {% include "includes/storekeeper_actions.html" %}
+  {% endif %}
+{% endif %}
