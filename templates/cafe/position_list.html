@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+     <h3 class="px-5">Positions</h3>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Salary</th>
+          <th class="text-center">Number of employees</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% for position in position_list %}
+          <tr>
+            <td>
+              {{ position.name }}
+            </td>
+            <td>
+              {{ position.salary }}
+            </td>
+            <td class="text-center">
+              {{ position.employees.count }}
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:position-update' pk=position.id %}">Update</a>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:position-delete' pk=position.id %}">Delete</a>
+            </td>
+          </tr>
+       {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}
