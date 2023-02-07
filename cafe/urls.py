@@ -21,7 +21,8 @@ from cafe.views.employee_views import (
     EmployeeListView,
     EmployeeDetailView,
     EmployeeUpdateView,
-    EmployeeDeleteView
+    EmployeeDeleteView,
+    dismissal_employee
 )
 from cafe.views.ingredient_views import (
     IngredientCreateView,
@@ -128,6 +129,11 @@ urlpatterns = [
         EmployeeDeleteView.as_view(),
         name="employee-delete"
     ),
+    path(
+        "employees/<int:pk>/dismiss",
+        dismissal_employee,
+        name="employee-dismissal"
+    ),
     path("dishes/create/", DishCreateView.as_view(), name="dish-create"),
     path("dishes/", DishListView.as_view(), name="dish-list"),
     path("dishes/<int:pk>/", DishDetailView.as_view(), name="dish-detail"),
@@ -166,4 +172,4 @@ urlpatterns = [
         RecipeDeleteView.as_view(),
         name="recipe-ingredient-delete"
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

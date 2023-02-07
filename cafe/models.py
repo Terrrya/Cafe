@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -15,6 +16,12 @@ class Position(models.Model):
 
 
 class Employee(AbstractUser):
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="avatar/",
+        default="avatar.png"
+    )
     position = models.ForeignKey(
         to=Position,
         on_delete=models.CASCADE,
@@ -22,8 +29,8 @@ class Employee(AbstractUser):
         blank=True,
         null=True
     )
-    hiring_date = models.DateField(auto_now_add=True)
-    date_of_dismissal = models.DateField(blank=True)
+    hiring_date = models.DateField(default=timezone.now)
+    date_of_dismissal = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = "employee"
@@ -56,7 +63,7 @@ class Ingredient(models.Model):
 
 
 class Dish(models.Model):
-    image = models.ImageField(null=True, blank=True, upload_to="images/")
+    image = models.ImageField(null=True, blank=True, upload_to="dish/")
     name = models.CharField(max_length=255, unique=True)
     dish_type = models.ForeignKey(
         to=DishType,
@@ -118,5 +125,5 @@ class Order(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"Order at {self.created_at} " \
-               f"({self.employee.first_name} {self.employee.last_name})"
+        return (f"Order at {self.created_at} "
+                f"({self.employee.first_name} {self.employee.last_name})")
