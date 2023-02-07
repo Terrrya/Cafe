@@ -19,14 +19,6 @@
         dishes
       </a>
     </li>
-    <li class="nav-item {% if request.path|endswith:"recipes/" %} nav-active  {% endif %}">
-    </li>
-    <li class="nav-item {% if request.path|endswith:"dish-types/" %} nav-active  {% endif %}">
-      <a href="{% url "cafe:dish-type-list" %}" class="nav-link link-dark">
-        <svg class="bi me-2 {% if request.path|endswith:"dish-types/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#collection"></use></svg>
-        Dish type
-      </a>
-    </li>
     <li class="nav-item {% if request.path|endswith:"ingredients/" %} nav-active  {% endif %}">
       <a href="{% url 'cafe:ingredient-list' %}" class="nav-link link-dark">
         <svg class="bi me-2 {% if request.path|endswith:"ingredients/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#calendar3"></use></svg>

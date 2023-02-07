@@ -1,7 +1,7 @@
 {% load crispy_forms_filters %}
 
 <div class="card-body">
-  <form action="" method="post" novalidate>
+  <form action="" method="post" novalidate enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
     <input class="btn btn-primary" type="Submit" value="{{ object|yesno:"Update,Add" }}">
