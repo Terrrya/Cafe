@@ -2,6 +2,7 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.urls import reverse
 
 
 class Position(models.Model):
@@ -60,6 +61,9 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("cafe:ingredient-list")
 
 
 class Dish(models.Model):

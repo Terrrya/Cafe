@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 class IngredientCreateView(generic.CreateView):
     model = Ingredient
     fields = "__all__"
-    success_url = reverse_lazy("cafe:ingredient-list")
 
 
 class IngredientListView(generic.ListView):
@@ -16,7 +15,6 @@ class IngredientListView(generic.ListView):
 class IngredientUpdateView(generic.UpdateView):
     model = Ingredient
     fields = "__all__"
-    success_url = reverse_lazy("cafe:ingredient-list")
 
 
 class IngredientDeleteView(generic.DeleteView):

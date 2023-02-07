@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card nav-active border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+      <h3 class="px-5">Deleting Ingredient</h3>
+    </div>
+    <div class="card-body">
+      {% if ingredient.recipes.all %}
+        <h5 class="dl text-bg-danger text-center">You can not delete ingredient: {{ ingredient.name }}!</h5>
+        <p class="px-5 ts mb-4">{{ ingredient.name }} used in following recipes:</p>
+        {% for recipe in ingredient.recipes.all %}
+          <div class="dl mb-4">
+          - {{ recipe.dish.name }} recipe
+        </div>
+        {% endfor %}
+        <p class="px-5 ts mb-4">Please delete/update recipes first</p>
+        <p><a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}">Cancel</a></p>
+      {% else %}
+        <p>Are you sure you want to delete ingredient: {{ ingredient.name }}</p>
+        {% include "includes/form_delete.html" %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
