@@ -51,6 +51,9 @@ class DishType(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("cafe:dish-type-list")
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)

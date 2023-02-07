@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+      <h3 class="px-5">Dish Types</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th class="text-center">Number of Dishes</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% for dish_type in dish_type_list %}
+          <tr>
+            <td>
+              {{ dish_type.name }}
+            </td>
+            <td class="text-center">
+              {{ dish_type.dishes.count }}
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:dish-type-update' pk=dish_type.id %}">Update</a>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:dish-type-delete' pk=dish_type.id %}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}
