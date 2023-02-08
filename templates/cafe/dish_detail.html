@@ -1,8 +1,47 @@
 {% extends "base.html" %}
+{% load static %}
+{% load not_none %}
 {% block content %}
-  <h1>{{ dish.name }}</h1>
-  <p>dish type: {{ dish.dish_type }}</p>
-  <p>price: {{ dish.price }}</p>
-  <p>description: {{ dish.description }}</p>
-  <p>recipe: {{ dish.recipe }}</p>
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+      <h3 class="px-5">{{ dish.name|upper }}</h3>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-3">
+            <img class="mx-auto" width="200" height="200" src="{% if dish.image %}{{ dish.image.url }}{% endif %}" alt="Avatar">
+          </div>
+          <div class="col-9 container">
+            <div class="row">
+              <div class="col-3">
+                <p class="form-control px-2">Dish type: {{ dish.dish_type }}</p>
+                <p class="form-control px-2">Price: {{ dish.price }}</p>
+              </div>
+              <div class="col-9">
+                <div class="card border-0">
+                  <div class="card-top pt-1 m-2">
+                    <h3 class="px-5">Ingredients:</h3>
+                  </div>
+                  <div class="card-body">
+                    {% for recipe_ingredient in dish.recipe.all %}
+                      <p class="m-0 p-0">{{ recipe_ingredient.ingredient.name }}: {{ recipe_ingredient.amount }} </p>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="form-control">
+            {{ dish.description }}
+          </div>
+        </div>
+      </div>
+        <a class="btn btn-primary pt-1 m-2" href="{% url 'cafe:dish-update' pk=dish.id %}">Update</a>
+        <a class="btn btn-secondary mx-2" href="{{request.META.HTTP_REFERER}}">Back</a>
+        <a class="btn btn-danger pt-1 m-2" href="{% url 'cafe:dish-delete' pk=dish.id %}">Delete</a>
+    </div>
+  </div>
 {% endblock %}
