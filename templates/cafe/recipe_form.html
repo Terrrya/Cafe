@@ -6,8 +6,8 @@
       <h3 class="px-5">{{ object|yesno:"Update," }} {{ dish.name }} recipe</h3>
     </div>
     {% if dish_recipe_ingredients %}
-      <div class="form-control textinput mb-3 px-3">
-        <table class="table-sm ">
+      <div class="dl m-2">
+        <table class="table">
           <tr>
             <th>Ingredient name</th>
             <th>Amount</th>
@@ -30,7 +30,9 @@
       </div>
     {% endif %}
     {% if form.ingredient.field.queryset %}
-      <p class="form-control textinput mb-3">{{ object|yesno:"Update,Add" }} ingredients in {{ dish.name }} recipe</p>
+      <div class="dl mx-3 text-bg-danger">
+        <p class="p-0 px-5 mb-0">{{ object|yesno:"Update,Add" }} ingredients in {{ dish.name }} recipe</p>
+      </div>
       {% include "includes/form.html" %}
     {% else %}
       <p class="form-control textinput mb-3">There no more ingredient in warehouse</p>
