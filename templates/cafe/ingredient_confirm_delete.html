@@ -11,7 +11,7 @@
         {% for recipe in ingredient.recipes.all %}
           <div class="dl mb-4">
           - {{ recipe.dish.name }} recipe
-        </div>
+          </div>
         {% endfor %}
         <p class="px-5 ts mb-4">Please delete/update recipes first</p>
         <p><a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}">Cancel</a></p>
