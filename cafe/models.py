@@ -115,7 +115,9 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     dishes = models.ManyToManyField(
         to=Dish,
-        related_name="orders"
+        related_name="orders",
+        through="OrderDish",
+        through_fields=["order", "dish"]
     )
     delivery = models.BooleanField(default=False)
     employee = models.ForeignKey(
@@ -134,3 +136,18 @@ class Order(models.Model):
     def __str__(self):
         return (f"Order at {self.created_at} "
                 f"({self.employee.first_name} {self.employee.last_name})")
+
+
+class OrderDish(models.Model):
+    order = models.ForeignKey(
+        to=Order,
+        on_delete=models.CASCADE,
+        related_name="order_dish",
+    )
+    dish = models.ForeignKey(
+        to=Dish,
+        on_delete=models.CASCADE,
+        related_name="order_dish",
+        null=True
+    )
+    amount = models.IntegerField(default=0)
