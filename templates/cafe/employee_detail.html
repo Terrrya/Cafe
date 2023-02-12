@@ -46,11 +46,12 @@
         </div></div>
     </div>
     <div class="btn-group">
-      <a class="btn btn-primary pt-1 m-2" href="{% url 'cafe:employee-update' pk=employee.id %}">Update</a>
-      <a class="btn btn-warning pt-1 m-2" href="{% url 'cafe:employee-dismissal' pk=employee.id %}">
+      <a class="btn btn-primary bg-gradient pt-1 m-2" href="{% url 'cafe:employee-update' pk=employee.id %}">Update</a>
+      <a class="btn btn-warning bg-gradient pt-1 m-2" href="{% url 'cafe:employee-dismissal' pk=employee.id %}">
         {{ employee.date_of_dismissal|yesno:"Hire,Dismiss" }}
       </a>
-      <a class="btn btn-danger pt-1 m-2" href="{% url 'cafe:employee-delete' pk=employee.id %}">Delete</a>
+      <a class="btn btn-secondary bg-gradient pt-1 m-2" href="{{request.META.HTTP_REFERER}}">Back</a>
+      <a class="btn btn-danger bg-gradient pt-1 m-2" href="{% url 'cafe:employee-delete' pk=employee.id %}">Delete</a>
     </div>
   </div>
 {% endblock %}
