@@ -21,7 +21,7 @@ class OrderUpdateView(generic.UpdateView):
 
 class OrderDeleteView(generic.DeleteView):
     model = Order
-    success_url = reverse_lazy("cafe:dish-list")
+    success_url = reverse_lazy("cafe:order-list")
 
 
 def create_new_order(request):
