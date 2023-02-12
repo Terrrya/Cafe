@@ -8,15 +8,15 @@
     {% if dish_recipe_ingredients %}
       <div class="dl m-2">
         <table class="table">
-          <tr>
+          <tr class="text-sm-center">
             <th>Ingredient name</th>
             <th>Amount</th>
             <th>Update ingredient</th>
             <th>Delete ingredient</th>
           </tr>
           {% for recipe in dish_recipe_ingredients %}
-            <tr>
-              <td>{{ recipe.ingredient.name }}</td>
+            <tr class="text-sm-center">
+              <td class="text-start ps-5">{{ recipe.ingredient.name }}</td>
               <td>{{ recipe.amount }}</td>
               <td><a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:recipe-ingredient-update' pk=recipe.id %}">Update ingredient</a></td>
               <td><a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:recipe-ingredient-delete' pk=recipe.id %}">Delete ingredient</a></td>
@@ -25,8 +25,8 @@
         </table>
       </div>
     {% else %}
-      <div class="form-control mb-3 mx-3">
-        There no ingredient in {{ dish.name }} recipe yet
+      <div class="dl m-2">
+        <p class="p-3">There no ingredient in {{ dish.name }} recipe yet</p>
       </div>
     {% endif %}
     {% if form.ingredient.field.queryset %}
@@ -37,8 +37,6 @@
     {% else %}
       <p class="form-control textinput mb-3">There no more ingredient in warehouse</p>
     {% endif %}
-    {% if not object %}
-      <a class="btn btn-primary" href="{% url 'cafe:dish-recipe-list' %}">Finish</a>
-    {% endif %}
+      <a class="btn btn-primary bg-gradient w-75 mx-auto mb-2" href="{% url 'cafe:dish-recipe-list' %}">Finish</a>
   </div>
 {% endblock %}
