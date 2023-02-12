@@ -14,7 +14,7 @@
           </div>
         {% endfor %}
         <p class="px-5 ts mb-4">Please delete/update recipes first</p>
-        <p><a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}">Cancel</a></p>
+        <p><a class="btn btn-secondary bg-gradient" href="{{request.META.HTTP_REFERER}}">Cancel</a></p>
       {% else %}
         <p>Are you sure you want to delete ingredient: {{ ingredient.name }}</p>
         {% include "includes/form_delete.html" %}
