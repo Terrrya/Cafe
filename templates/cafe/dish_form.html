@@ -9,6 +9,7 @@
   <form action="" method="post" novalidate enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
-    <input class="btn btn-primary" type="submit" value="{{ object|yesno:"Update,Create" }} dish recipe">
+    <input class="btn btn-primary bg-gradient" type="submit" value="{{ object|yesno:"Update,Create" }} dish recipe">
+    <a class="btn btn-secondary bg-gradient mx-2" href="{{request.META.HTTP_REFERER}}">Back</a>
   </form>
 {% endblock %}
