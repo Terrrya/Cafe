@@ -53,14 +53,13 @@ class RecipeUpdateView(generic.UpdateView):
         new_queryset = form.fields["ingredient"].queryset.exclude(
             name__in=recipe.dish.ingredients.values_list("name")
         )
+        form.fields["ingredient"].queryset = Ingredient.objects.filter(
+                name=recipe.ingredient.name
+            )
         if new_queryset:
             form.fields["ingredient"].queryset = (
                     new_queryset
-                    | Ingredient.objects.filter(name=recipe.ingredient.name)
-            )
-        else:
-            form.fields["ingredient"].queryset = Ingredient.objects.filter(
-                name=recipe.ingredient.name
+                    | form.fields["ingredient"].queryset
             )
         return form
 
