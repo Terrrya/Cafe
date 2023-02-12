@@ -1,5 +1,5 @@
 {% load endswith %}
-<div class="dropdown vh-100 pt-2">
+<div class="dropdown vh-100 pt-2 sidebar">
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item {% if request.path|endswith:"home/" %}nav-active{% endif %}">
       <a href="{% url 'cafe:home' %}" class="nav-link link-dark align-center" aria-current="page">
@@ -51,12 +51,12 @@
     </li>
     <hr>
     <li class="nav-item">
-      <button class="border-0 w-100" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="border-0 w-auto" id="dropdownMenuLink m-0" data-bs-toggle="dropdown" aria-expanded="false">
         <svg class="bi me-2 nav-active svg-active mt-1" width="30" height="30"><use xlink:href="#people-circle"></use></svg>
         {{ request.user.username }}
         <p class="mb-0">Position: Admin</p>
       </button>
-      <ul class="dropdown-menu text-small shadow border-0" aria-labelledby="dropdownMenuLink">
+      <ul class="dropdown-menu text-small shadow border-0 m-0" aria-labelledby="dropdownMenuLink">
         <li><a class="dropdown-item" href="{% url 'cafe:position-create' %}">Create new position</a></li>
         <li><a class="dropdown-item" href="{% url 'cafe:employee-create' %}">Create new employee</a></li>
         <li><a class="dropdown-item" href="{% url 'cafe:dish-type-create' %}">Create new dish-type</a></li>

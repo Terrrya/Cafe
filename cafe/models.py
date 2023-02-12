@@ -128,7 +128,7 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        return sum(dish.price for dish in self.dishes.all())
+        return sum(order_dish.dish.price * order_dish.amount for order_dish in self.order_dish.all())
 
     class Meta:
         ordering = ["-created_at"]
