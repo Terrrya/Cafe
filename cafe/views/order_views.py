@@ -8,6 +8,11 @@ from django.shortcuts import render
 class OrderListView(generic.ListView):
     model = Order
 
+    def get_context_data(self, **kwargs):
+        context = super(OrderListView, self).get_context_data(**kwargs)
+        context["order_dishes"] = OrderDish.objects.all()
+        return context
+
 
 class OrderDetailView(generic.DetailView):
     model = Order
