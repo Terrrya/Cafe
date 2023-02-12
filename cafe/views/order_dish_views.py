@@ -7,15 +7,18 @@ class OrderDishCreateView(generic.CreateView):
     model = OrderDish
     template_name = "includes/form.html"
     fields = ["amount"]
-    success_url = reverse_lazy("cafe:order-create")
 
     def form_valid(self, form):
         form_fields = form.save(commit=False)
         form_fields.order = Order.objects.get(id=self.kwargs["pk"])
         form_fields.dish = Dish.objects.get(name=self.request.POST["dish"])
         form_fields.save()
-        return super().form_valid(form)
+        return super().form_valid(form_fields)
 
     def get_success_url(self):
-        pk = self.kwargs["pk"]
-        return f"{reverse_lazy('cafe:order-create')}?pk={pk}"
+        return reverse_lazy(
+            "cafe:order-create", kwargs={
+                "pk": self.kwargs["pk"],
+                "create": self.request.POST["create"]
+            }
+        )

@@ -1,7 +1,5 @@
 from django.urls import path
 from django.contrib.auth import views
-from django.conf.urls.static import static
-from django.conf import settings
 
 from cafe.views.dish_type_views import (
     DishTypeCreateView,
@@ -31,12 +29,15 @@ from cafe.views.ingredient_views import (
     IngredientDeleteView
 )
 from cafe.views.order_views import (
-    # OrderCreateView,
     OrderListView,
     OrderDetailView,
     OrderUpdateView,
-    OrderDeleteView, create_new_order, select_dish, delivery, cancel_order,
-    delete_dish_from_order,
+    OrderDeleteView,
+    create_new_order,
+    select_dish,
+    delivery,
+    cancel_order,
+    delete_dish_from_order
 )
 from cafe.views.position_views import (
     PositionCreateView,
@@ -149,33 +150,36 @@ urlpatterns = [
         DishDeleteView.as_view(),
         name="dish-delete"
     ),
-    path("order/<int:pk>/cancel/", cancel_order, name="order-cancel"),
     path(
-        "orders/<int:order_pk>/dish/<int:dish_pk>/",
-        select_dish,
-        name="select-dish"),
-    path(
-        "oders/<int:order_pk>/dish/<int:order_dish_pk>/",
+        "oders/<int:order_pk>/<str:create>/dish/<int:order_dish_pk>/",
         delete_dish_from_order,
         name="delete-dish-from-order"),
+    path(
+        "orders/<int:pk>/<str:create>/",
+        create_new_order,
+        name="order-create"
+    ),
+    path("orders/", OrderListView.as_view(), name="order-list"),
+    path("orders/<int:pk>/", OrderDetailView.as_view(), name="order-detail"),
+    path(
+        "order/<int:pk>/delete/",
+        OrderDeleteView.as_view(),
+        name="order-delete"
+    ),
+    path(
+        "order/<int:pk>/<str:create>/cancel/",
+        cancel_order,
+        name="order-cancel"
+    ),
+    path("order/<int:pk>/<str:create>/delivery/", delivery, name="delivery"),
+    path(
+        "orders/<int:order_pk>/<str:create>/dish/<int:dish_pk>/",
+        select_dish,
+        name="select-dish"),
     path(
         "orders/<int:pk>/create/dish/",
         OrderDishCreateView.as_view(),
         name="order-dish-create"
-    ),
-    path("orders/create/", create_new_order, name="order-create"),
-    path("order/<int:pk>/delivery/", delivery, name="delivery"),
-    path("orders/", OrderListView.as_view(), name="order-list"),
-    path("orders/<int:pk>/", OrderDetailView.as_view(), name="order-detail"),
-    path(
-        "orders/<int:pk>/update/",
-        OrderUpdateView.as_view(),
-        name="order-update"
-    ),
-    path(
-        "orders/<int:pk>/delete/",
-        OrderDeleteView.as_view(),
-        name="order-delete"
     ),
     path("dish/<int:pk>/recipe/", RecipeView.as_view(), name="dish-recipe"),
     path("dish-recipes/", RecipeListView.as_view(), name="dish-recipe-list"),
@@ -189,9 +193,4 @@ urlpatterns = [
         RecipeDeleteView.as_view(),
         name="recipe-ingredient-delete"
     ),
-    # path(
-    #     "order-dish/create",
-    #     OrderDishCreateView.as_view(),
-    #     name="order-dish-create"
-    # )
 ]

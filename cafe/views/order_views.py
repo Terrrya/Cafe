@@ -24,10 +24,9 @@ class OrderDeleteView(generic.DeleteView):
     success_url = reverse_lazy("cafe:order-list")
 
 
-def create_new_order(request):
-
-    if request.GET.get("pk"):
-        order = Order.objects.get(id=request.GET.get("pk"))
+def create_new_order(request, pk, create):
+    if pk > 0:
+        order = Order.objects.get(id=pk)
     else:
         for order in Order.objects.all():
             if not order.order_dish.all():
@@ -43,6 +42,7 @@ def create_new_order(request):
         "order": order,
         "order_dish_list": order_dish_list,
         "dish_list": dish_list,
+        "create": create
     }
     return render(
         request,
@@ -51,26 +51,35 @@ def create_new_order(request):
     )
 
 
-def delivery(request, pk):
+def delivery(request, pk, create):
     order = Order.objects.get(id=pk)
     order.delivery = not order.delivery
     order.save()
-    return redirect(f"{reverse_lazy('cafe:order-create')}?pk={pk}")
+    return redirect(reverse_lazy("cafe:order-create", kwargs={
+        "pk": pk,
+        "create": create
+    }))
 
 
-def select_dish(request, order_pk, dish_pk):
-    return redirect(
-        f"{reverse_lazy('cafe:order-create')}?pk={order_pk}&dish={dish_pk}"
-    )
+def select_dish(request, order_pk, dish_pk, create):
+    url = reverse_lazy("cafe:order-create", kwargs={
+        "pk": order_pk,
+        "create": create
+    })
+    return redirect(f"{url}?dish={dish_pk}")
 
 
-def cancel_order(request, pk):
-    Order.objects.get(id=pk).delete()
+def cancel_order(request, pk, create):
+    if create == "create":
+        Order.objects.get(id=pk).delete()
     return redirect(reverse_lazy("cafe:dish-list"))
 
 
-def delete_dish_from_order(request, order_pk, order_dish_pk):
+def delete_dish_from_order(request, order_pk, order_dish_pk, create):
     OrderDish.objects.get(id=order_dish_pk).delete()
     return redirect(
-        f"{reverse_lazy('cafe:order-create')}?pk={order_pk}"
+        reverse_lazy('cafe:order-create', kwargs={
+            "pk": order_pk,
+            "create": create
+        })
     )
