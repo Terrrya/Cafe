@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from cafe.models import Position, Employee, DishType, Ingredient, Dish, Order, \
-    Recipe
+from cafe.models import (
+    Position,
+    Employee,
+    DishType,
+    Ingredient,
+    Dish,
+    Order,
+    Recipe,
+    OrderDish
+)
 
 admin.site.register(DishType)
 # admin.site.register(Dish)
@@ -39,6 +47,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 class RecipeInline(admin.TabularInline):
     model = Recipe
+    verbose_name = "recipe ingredient"
     extra = 1
 
 
@@ -58,6 +67,12 @@ class DishAdmin(admin.ModelAdmin):
     inlines = [RecipeInline]
 
 
+class OrderDishInline(admin.TabularInline):
+    model = OrderDish
+    extra = 1
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ["created_at", "delivery", "total_price", "employee"]
+    inlines = [OrderDishInline]
