@@ -24,7 +24,7 @@
                     <h3 class="px-5">Ingredients:</h3>
                   </div>
                   <div class="card-body">
-                    {% for recipe_ingredient in dish.recipe.all %}
+                    {% for recipe_ingredient in dish.recipe.select_related %}
                       <p class="m-0 p-0">{{ recipe_ingredient.ingredient.name }}: {{ recipe_ingredient.amount }} </p>
                     {% endfor %}
                   </div>
