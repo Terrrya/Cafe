@@ -2,6 +2,10 @@ body {
     background-color: #f5f5f5;
 }
 
+.sidebar {
+    position: fixed;
+}
+
 .login {
     padding-top: 140px;
 }
@@ -37,7 +41,8 @@ img {
 
 .card-top {
     text-shadow: 3px 3px 5px darkred;
-    background-color: #d53955;
+    /*background-color: #d53955;*/
+    background-image: linear-gradient(to right, #d75c5c, #9a0d26);
     border-radius: 25px;
 }
 
@@ -75,7 +80,7 @@ button:active {
     text-shadow: 3px 3px 5px lightgray;
 }
 
-.form-control, .form-select {
+.form-control, .form-select, .btn {
     box-shadow: 3px 3px 25px lightgray;
 }
 
@@ -98,4 +103,44 @@ button:active {
 
 .fix {
     width: 200px;
+}
+
+.dish-text {
+    font-size: small;
+}
+
+.tn {
+    font-size: large;
+}
+
+.search {
+    display: flex;
+    padding: 0;
+    border-radius: 35px;
+    transition: 0.4s;
+}
+
+.search .textbox {
+    border: 0;
+    width: 0;
+    text-indent: 16px;
+    transition: 0.4s;
+}
+
+.search:hover .textbox {
+    width: 250px;
+}
+
+.search .icon {
+    border: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: #9a0d26;
+    width: 45px;
+    height: 40px;
+}
+
+.shadow-none {
+    box-shadow: none;
+    text-shadow: none;
 }

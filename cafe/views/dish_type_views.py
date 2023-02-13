@@ -2,6 +2,8 @@ from django.views import generic
 from cafe.models import DishType
 from django.urls import reverse_lazy
 
+from cafe.views.views import UniversalListView
+
 
 class DishTypeCreateView(generic.CreateView):
     model = DishType
@@ -9,10 +11,11 @@ class DishTypeCreateView(generic.CreateView):
     fields = "__all__"
 
 
-class DishTypeListView(generic.ListView):
-    model = DishType
+class DishTypeListView(UniversalListView):
     template_name = "cafe/dish_type_list.html"
     context_object_name = "dish_type_list"
+    queryset = DishType.objects.all()
+    key_to_search = "name"
 
 
 class DishTypeUpdateView(generic.UpdateView):

@@ -1,8 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block content %}
   <div class="card border-0 mt-4">
-    <div class="card-top pt-1 m-2">
+    <div class="card-top pt-1 m-2 d-flex flex-row justify-content-between">
       <h3 class="px-5">Dish Types</h3>
+      <h5 class="p-0 mb-1">
+      <form class="search" type="search">
+        {{ search_form}}
+        <input class="search icon" type="submit" value="&#128270;">
+      </form>
+      </h5>
     </div>
     <div class="card-body">
       <table class="table table-striped">
