@@ -2,6 +2,8 @@ from django.views import generic
 from cafe.models import Position
 from django.urls import reverse_lazy
 
+from cafe.views.views import UniversalListView
+
 
 class PositionCreateView(generic.CreateView):
     model = Position
@@ -9,8 +11,9 @@ class PositionCreateView(generic.CreateView):
     success_url = reverse_lazy("cafe:position-list")
 
 
-class PositionListView(generic.ListView):
-    model = Position
+class PositionListView(UniversalListView):
+    queryset = Position.objects.all()
+    key_to_search = "name"
 
 
 class PositionUpdateView(generic.UpdateView):
