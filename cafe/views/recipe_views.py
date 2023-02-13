@@ -2,6 +2,8 @@ from django.views import generic
 from cafe.models import Dish, Ingredient, Recipe
 from django.urls import reverse_lazy
 
+from cafe.views.views import UniversalListView
+
 
 class RecipeView(generic.CreateView):
     model = Recipe
@@ -34,13 +36,11 @@ class RecipeView(generic.CreateView):
         })
 
 
-class RecipeListView(generic.ListView):
-    model = Recipe
-
-    def get_context_data(self, **kwargs):
-        context = super(RecipeListView, self).get_context_data(**kwargs)
-        context["dishes"] = Dish.objects.all()
-        return context
+class RecipeListView(UniversalListView):
+    queryset = Recipe.objects.order_by("dish__name").values(
+        "dish__name"
+    ).distinct()
+    key_to_search = "dish__name"
 
 
 class RecipeUpdateView(generic.UpdateView):

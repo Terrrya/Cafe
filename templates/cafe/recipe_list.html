@@ -1,9 +1,15 @@
 {% extends "base.html" %}
-{% load queryset_filter %}
+{% load get %}
 {% block content %}
   <div class="card border-0 mt-4">
-    <div class="card-top m-2 pt-1">
-      <h3 class="px-5">Recipe Book</h3>
+    <div class="card-top pt-1 m-2 d-flex flex-row justify-content-between">
+      <h3 class="ps-5">Recipe Book</h3>
+      <h5 class="p-0 mb-1">
+        <form action="" class="search" method="get">
+          {{ search_form }}
+          <input class="search icon" type="submit" value="&#128270;">
+        </form>
+      </h5>
     </div>
     <div class="card-body">
       <table  class="table table-striped">
@@ -14,26 +20,28 @@
           <th>Update</th>
           <th>Delete</th>
         </tr>
-        {% for dish in dishes %}
-          <tr>
-            <td class="align-middle">
-              {{ dish.name }}
-            </td>
-            <td>
-              {% for recipe in recipe_list|queryset_filter_dish:dish %}
-                <p class="p-0 m-0">{{ recipe.ingredient.name }}: {{ recipe.amount}}</p>
-              {% endfor %}
-            </td>
-            <td class="align-middle">
-              {{ dish.orders.count }}
-            </td>
-            <td class="align-middle">
-              <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:dish-update' pk=dish.id %}">Update dish</a>
-            </td>
-            <td class="align-middle">
-              <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:dish-delete' pk=dish.id %}">Delete dish</a>
-            </td>
-          </tr>
+        {% for dish_name in recipe_list %}
+          {% with dish_name|get_dish as dish %}
+            <tr>
+              <td class="align-middle">
+                {{ dish.name }}
+              </td>
+              <td>
+                {% for recipe in dish.recipe.select_related %}
+                  <p class="p-0 m-0">{{ recipe.ingredient.name }}: {{ recipe.amount}}</p>
+                {% endfor %}
+              </td>
+              <td class="align-middle">
+                {{ dish.orders.count }}
+              </td>
+              <td class="align-middle">
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:dish-update' pk=dish.id %}">Update dish</a>
+              </td>
+              <td class="align-middle">
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:dish-delete' pk=dish.id %}">Delete dish</a>
+              </td>
+            </tr>
+          {% endwith %}
         {% endfor %}
       </table>
     </div>
