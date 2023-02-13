@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.urls import reverse
+from django.core.validators import MinValueValidator
 
 
 class Position(models.Model):
@@ -57,7 +58,9 @@ class DishType(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    amount_of = models.FloatField()
+    amount_of = models.FloatField(validators=[
+        MinValueValidator(0)
+    ])
 
     class Meta:
         ordering = ["name"]
@@ -83,7 +86,9 @@ class Dish(models.Model):
         through="Recipe",
         through_fields=["dish", "ingredient"]
     )
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, validators=[
+        MinValueValidator(0)
+    ])
     description = models.TextField()
 
     class Meta:
@@ -105,7 +110,9 @@ class Recipe(models.Model):
         on_delete=models.PROTECT,
         related_name="recipes"
     )
-    amount = models.FloatField()
+    amount = models.FloatField(validators=[
+        MinValueValidator(0)
+    ])
 
     class Meta:
         unique_together = ["dish", "ingredient"]
@@ -150,4 +157,4 @@ class OrderDish(models.Model):
         related_name="order_dish",
         null=True
     )
-    amount = models.IntegerField(default=0)
+    amount = models.IntegerField()
