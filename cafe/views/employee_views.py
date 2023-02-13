@@ -20,7 +20,7 @@ class EmployeeCreateView(generic.CreateView):
 
 
 class EmployeeListView(UniversalListView):
-    queryset = Employee.objects.all()
+    queryset = Employee.objects.select_related("position")
     key_to_search = "last_name"
 
 
