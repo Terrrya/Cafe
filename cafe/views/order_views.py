@@ -3,17 +3,20 @@ from django.shortcuts import redirect
 from cafe.models import Order, OrderDish, Dish, Recipe
 from django.urls import reverse_lazy
 from django.shortcuts import render
-
 from cafe.views.views import UniversalListView
 
 
 class OrderListView(UniversalListView):
-    queryset = Order.objects.all()
+    queryset = Order.objects.select_related("employee").prefetch_related(
+        "dishes"
+    )
     key_to_search = "created_at"
 
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
-        context["order_dishes"] = OrderDish.objects.all()
+        context["order_dishes"] = OrderDish.objects.select_related(
+            "order"
+        ).select_related("dish")
         return context
 
 
