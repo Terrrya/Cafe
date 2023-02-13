@@ -1,8 +1,6 @@
 from django.views import generic
-from cafe.models import Order, OrderDish, Dish, Recipe, Ingredient
+from cafe.models import Order, OrderDish, Dish, Recipe
 from django.urls import reverse_lazy
-from django.core.exceptions import ValidationError
-from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
@@ -15,10 +13,26 @@ class OrderDishCreateView(generic.CreateView):
     def form_valid(self, form):
         form_fields = form.save(commit=False)
         if form_fields.amount <= 0:
-            messages.warning(self.request, "You should check at least 1 pc of dishes")
+            messages.warning(
+                self.request, "You should check at least 1 pc of dishes"
+            )
             return HttpResponseRedirect(self.get_success_url())
         form_fields.order = Order.objects.get(id=self.kwargs["pk"])
         form_fields.dish = Dish.objects.get(name=self.request.POST["dish"])
+        recipe_ingredients = Recipe.objects.filter(
+            dish__name=form_fields.dish.name
+        )
+        for recipe_ingredient in recipe_ingredients:
+            recipe_ingredient.ingredient.amount_of -= \
+                recipe_ingredient.amount * form_fields.amount
+            if recipe_ingredient.ingredient.amount_of < 0:
+                messages.warning(
+                    self.request,
+                    "Not enough ingredient: "
+                    f"{recipe_ingredient.ingredient.name} in warehouse"
+                )
+                return HttpResponseRedirect(self.get_success_url())
+            recipe_ingredient.ingredient.save()
         form_fields.save()
         return super().form_valid(form_fields)
 

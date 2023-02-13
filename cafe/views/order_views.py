@@ -1,6 +1,6 @@
 from django.views import generic
 from django.shortcuts import redirect
-from cafe.models import Order, OrderDish, Dish
+from cafe.models import Order, OrderDish, Dish, Recipe
 from django.urls import reverse_lazy
 from django.shortcuts import render
 
@@ -81,9 +81,15 @@ def cancel_order(request, pk, create):
 
 
 def delete_dish_from_order(request, order_pk, order_dish_pk, create):
+    recipe_ingredients = Recipe.objects.filter(
+        dish_id=OrderDish.objects.get(id=order_dish_pk).dish.id
+    )
+    for recipe_ingredient in recipe_ingredients:
+        recipe_ingredient.ingredient.amount_of += recipe_ingredient.amount
+        recipe_ingredient.ingredient.save()
     OrderDish.objects.get(id=order_dish_pk).delete()
     return redirect(
-        reverse_lazy('cafe:order-create', kwargs={
+        reverse_lazy("cafe:order-create", kwargs={
             "pk": order_pk,
             "create": create
         })
