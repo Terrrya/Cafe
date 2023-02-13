@@ -14,16 +14,6 @@ class OrderListView(generic.ListView):
         return context
 
 
-class OrderDetailView(generic.DetailView):
-    model = Order
-
-
-class OrderUpdateView(generic.UpdateView):
-    model = Order
-    fields = "__all__"
-    success_url = reverse_lazy("cafe:order-list")
-
-
 class OrderDeleteView(generic.DeleteView):
     model = Order
     success_url = reverse_lazy("cafe:order-list")

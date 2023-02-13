@@ -30,8 +30,6 @@ from cafe.views.ingredient_views import (
 )
 from cafe.views.order_views import (
     OrderListView,
-    OrderDetailView,
-    OrderUpdateView,
     OrderDeleteView,
     create_new_order,
     select_dish,
@@ -160,7 +158,6 @@ urlpatterns = [
         name="order-create"
     ),
     path("orders/", OrderListView.as_view(), name="order-list"),
-    path("orders/<int:pk>/", OrderDetailView.as_view(), name="order-detail"),
     path(
         "order/<int:pk>/delete/",
         OrderDeleteView.as_view(),
