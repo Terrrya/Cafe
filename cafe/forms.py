@@ -40,3 +40,16 @@ class EmployeeUpdateForm(forms.ModelForm):
             "hiring_date",
             "date_of_dismissal"
         )
+
+
+class SearchForm(forms.Form):
+    field = forms.CharField(
+        max_length=255,
+        label="",
+        required=False,
+        widget=forms.TextInput(attrs={
+            "placeholder": "Search here",
+            "size": "40",
+            "class": "search textbox shadow-none"
+        })
+    )
