@@ -14,7 +14,7 @@ class DishTypeCreateView(generic.CreateView):
 class DishTypeListView(UniversalListView):
     template_name = "cafe/dish_type_list.html"
     context_object_name = "dish_type_list"
-    queryset = DishType.objects.all()
+    queryset = DishType.objects.prefetch_related("dishes")
     key_to_search = "name"
 
 
