@@ -4,9 +4,12 @@ from cafe.models import Order, OrderDish, Dish, Recipe
 from django.urls import reverse_lazy
 from django.shortcuts import render
 
+from cafe.views.views import UniversalListView
 
-class OrderListView(generic.ListView):
-    model = Order
+
+class OrderListView(UniversalListView):
+    queryset = Order.objects.all()
+    key_to_search = "created_at"
 
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
