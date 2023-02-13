@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
+from cafe.views.views import UniversalListView
+
 
 class EmployeeCreateView(generic.CreateView):
     model = Employee
@@ -17,8 +19,9 @@ class EmployeeCreateView(generic.CreateView):
         return form
 
 
-class EmployeeListView(generic.ListView):
-    model = Employee
+class EmployeeListView(UniversalListView):
+    queryset = Employee.objects.all()
+    key_to_search = "last_name"
 
 
 class EmployeeDetailView(generic.DetailView):
