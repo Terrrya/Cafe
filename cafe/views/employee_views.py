@@ -22,6 +22,7 @@ class EmployeeCreateView(generic.CreateView):
 class EmployeeListView(UniversalListView):
     queryset = Employee.objects.select_related("position")
     key_to_search = "last_name"
+    paginate_by = 5
 
 
 class EmployeeDetailView(generic.DetailView):
