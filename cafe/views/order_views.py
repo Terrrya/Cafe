@@ -11,6 +11,7 @@ class OrderListView(UniversalListView):
         "dishes"
     )
     key_to_search = "created_at"
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
