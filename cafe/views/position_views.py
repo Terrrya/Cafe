@@ -14,6 +14,7 @@ class PositionCreateView(generic.CreateView):
 class PositionListView(UniversalListView):
     queryset = Position.objects.prefetch_related("employees")
     key_to_search = "name"
+    paginate_by = 5
 
 
 class PositionUpdateView(generic.UpdateView):
