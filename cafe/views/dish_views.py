@@ -2,6 +2,8 @@ from django.views import generic
 from cafe.models import Dish
 from django.urls import reverse_lazy
 
+from cafe.views.views import UniversalListView
+
 
 class DishCreateView(generic.CreateView):
     model = Dish
@@ -14,9 +16,10 @@ class DishCreateView(generic.CreateView):
         )
 
 
-class DishListView(generic.ListView):
+class DishListView(UniversalListView):
     queryset = Dish.objects.select_related("dish_type")
     paginate_by = 12
+    key_to_search = "name"
 
 
 class DishDetailView(generic.DetailView):
