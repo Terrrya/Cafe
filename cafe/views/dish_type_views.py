@@ -16,6 +16,7 @@ class DishTypeListView(UniversalListView):
     context_object_name = "dish_type_list"
     queryset = DishType.objects.prefetch_related("dishes")
     key_to_search = "name"
+    paginate_by = 5
 
 
 class DishTypeUpdateView(generic.UpdateView):
