@@ -37,7 +37,7 @@ class RecipeView(generic.CreateView):
 
 
 class RecipeListView(UniversalListView):
-    queryset = Recipe.objects.order_by("dish__name").values(
+    queryset = Recipe.objects.order_by("dish__name").values_list(
         "dish__name"
     ).distinct()
     key_to_search = "dish__name"

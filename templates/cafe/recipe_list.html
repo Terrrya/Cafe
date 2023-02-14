@@ -20,8 +20,8 @@
           <th>Update</th>
           <th>Delete</th>
         </tr>
-        {% for dish_name in recipe_list %}
-          {% with dish_name|get_dish as dish %}
+        {% with recipe_list|get_dish as dish_list %}
+          {% for dish in dish_list %}
             <tr>
               <td class="align-middle">
                 {{ dish.name }}
@@ -41,8 +41,8 @@
                 <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:dish-delete' pk=dish.id %}">Delete dish</a>
               </td>
             </tr>
-          {% endwith %}
-        {% endfor %}
+
+        {% endfor %} {% endwith %}
       </table>
     </div>
   </div>

@@ -7,4 +7,4 @@ register = template.Library()
 
 @register.filter()
 def get_dish(value):
-    return Dish.objects.get(name=value["dish__name"])
+    return Dish.objects.filter(name__in=value).select_related("dish_type").prefetch_related("orders").prefetch_related("recipe")
