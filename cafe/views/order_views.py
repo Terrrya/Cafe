@@ -15,9 +15,7 @@ class OrderListView(UniversalListView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
-        context["order_dishes"] = OrderDish.objects.select_related(
-            "order"
-        ).select_related("dish")
+        context["order_dishes_list"] = OrderDish.objects.select_related("dish")
         return context
 
 

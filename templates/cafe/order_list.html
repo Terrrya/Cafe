@@ -28,8 +28,8 @@
               {{ order.created_at }}
             </td>
             <td>
-              {% for order_dish in order_dishes|queryset_filter_order:order %}
-                <p class="p-0 m-0">{{ order_dish.dish.name }}: {{ order_dish.amount}}</p>
+              {% for order_dish in order_dishes_list|queryset_filter_order:order %}
+                <p class="p-0 m-0">{{ order_dish.dish.name }}: {{ order_dish.amount }}</p>
               {% endfor %}
             </td>
             <td class="align-middle">
