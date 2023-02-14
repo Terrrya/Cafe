@@ -16,6 +16,7 @@ class DishCreateView(generic.CreateView):
 
 class DishListView(generic.ListView):
     queryset = Dish.objects.select_related("dish_type")
+    paginate_by = 12
 
 
 class DishDetailView(generic.DetailView):
