@@ -3,10 +3,7 @@
   <div class="card-top pt-1 mt-4 d-flex flex-row justify-content-between">
       <h3 class="ps-5">Menu</h3>
       <h5 class="p-0 mb-1">
-        <form action="" class="search" type="search" method="get">
-          {{ search_form }}
-          <input class="search icon" type="submit" value="&#128270;">
-        </form>
+        {% include "includes/search.html" %}
       </h5>
   </div>
   {% include "includes/dish_list_base.html" %}
