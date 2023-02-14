@@ -41,6 +41,7 @@ class RecipeListView(UniversalListView):
         "dish__name"
     ).distinct()
     key_to_search = "dish__name"
+    paginate_by = 4
 
 
 class RecipeUpdateView(generic.UpdateView):
