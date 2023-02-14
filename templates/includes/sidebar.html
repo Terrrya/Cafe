@@ -13,37 +13,37 @@
       <li class="nav-item {% if request.path|endswith:"orders/" %}nav-active{% endif %}">
         <a href="{% url 'cafe:order-list' %}" class="nav-link link-dark">
           <svg class="bi me-2 {% if request.path|endswith:"orders/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#speedometer2"></use></svg>
-          order
+          Orders
         </a>
       </li>
       <li class="nav-item {% if request.path|endswith:"dishes/" %}nav-active{% endif %}">
         <a href="{% url 'cafe:dish-list' %}" class="nav-link link-dark">
           <svg class="bi me-2 {% if request.path|endswith:"dishes/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#table"></use></svg>
-          dishes
+          Menu
         </a>
       </li>
       <li class="nav-item {% if request.path|endswith:"recipes/" %}nav-active{% endif %}">
         <a href="{% url 'cafe:dish-recipe-list' %}" class="nav-link link-dark">
           <svg class="bi me-2 {% if request.path|endswith:"recipes/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#table"></use></svg>
-          Recipes
+          Recipe book
         </a>
       </li>
       <li class="nav-item {% if request.path|endswith:"dish-types/" %}nav-active{% endif %}">
         <a href="{% url "cafe:dish-type-list" %}" class="nav-link link-dark">
           <svg class="bi me-2 {% if request.path|endswith:"dish-types/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#collection"></use></svg>
-          Dish type
+          Dish types
         </a>
       </li>
       <li class="nav-item {% if request.path|endswith:"ingredients/" %}nav-active{% endif %}">
         <a href="{% url 'cafe:ingredient-list' %}" class="nav-link link-dark">
           <svg class="bi me-2 {% if request.path|endswith:"ingredients/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#calendar3"></use></svg>
-          Ingredient
+          Ingredients
         </a>
       </li>
       <li class="nav-item {% if request.path|endswith:"employees/" %}nav-active{% endif %}">
         <a href="{% url 'cafe:employee-list' %}" class="nav-link link-dark">
           <svg class="bi me-2 {% if request.path|endswith:"employees/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#chat-quote-fill"></use></svg>
-          Employee
+          Employees
         </a>
       </li>
       <li class="nav-item {% if request.path|endswith:"positions/" %}nav-active{% endif %}">
