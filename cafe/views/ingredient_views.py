@@ -13,7 +13,7 @@ class IngredientCreateView(generic.CreateView):
 class IngredientListView(UniversalListView):
     queryset = Ingredient.objects.all()
     key_to_search = "name"
-
+    paginate_by = 10
 
 
 class IngredientUpdateView(generic.UpdateView):
