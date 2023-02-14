@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content2 %}
+{#  {% if form.errors %}#}
+{#    <p style="color:red">Invalid credential</p>#}
+{#  {% endif %}#}
+{#  <form method="POST" action="{% url 'login' %}" novalidate>#}
+{#    {% csrf_token %}#}
+{#    {{ form|crispy }}#}
+{#    <input class="btn btn-outline-warning" type="submit" value="Login">#}
+{#    <input type="hidden" name="next" value="{{ next }}">#}
+{#  </form>#}
+    <div class="card nav-active border-0 mt-4 w-25 mx-auto my-auto">
+      <div class="card-top pt-1 m-2">
+        <h3 class="px-5">Please login</h3>
+      </div>
+      <div class="card-body">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input class="btn btn-primary" type="Submit" value="Login">
+          <input type="hidden" name="next" value="{{ next }}">
+        </form>
+      </div>
+    </div>
+{% endblock %}
+{#{% block content2 %}#}
+{#<main class="form-signin">#}
+{#  <h1>Login</h1>#}
+{#  <form action="" method="post" novalidate>#}
+{#    {% csrf_token %}#}
+{#    {{ form|crispy }}#}
+{#    <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">#}
+{#    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>#}
+{##}
+{#    <div class="form-floating">#}
+{#      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">#}
+{#      <label for="floatingInput">Email address</label>#}
+{#    </div>#}
+{#    <div class="form-floating">#}
+{#      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">#}
+{#      <label for="floatingPassword">Password</label>#}
+{#    </div>#}
+{##}
+{#    <div class="checkbox mb-3">#}
+{#      <label>#}
+{#        <input type="checkbox" value="remember-me"> Remember me#}
+{#      </label>#}
+{#    </div>#}
+{#    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>#}
+{#    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>#}
+{#  </form>#}
+{#</main>#}
+{#{% endblock %}#}
+{#{% block content2 %}#}
+{#  <div class="container py-3">#}
+{#  <main>#}
+{#    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">#}
+{#      <div class="col"></div>#}
+{#      <div class="col">#}
+{#        <div class="card mb-4 rounded-3 shadow-sm">#}
+{#          <div class="card-header py-3">#}
+{#            <h4 class="my-0 fw-normal">Please login</h4>#}
+{#          </div>#}
+{#          <div class="card-body">#}
+{#            <form action="{% url 'login' %}" method="post" novalidate>#}
+{#              {% csrf_token %}#}
+{#              {{ form|crispy }}#}
+{#              <input type="submit" class="w-100 btn btn-lg btn-outline-primary" value="Login"></input>#}
+{#            </form>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{##}
+{#  </main>#}
+{#</div>#}
+{#{% endblock %}#}
