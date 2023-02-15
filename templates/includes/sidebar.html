@@ -2,7 +2,7 @@
 {% include "includes/svg.html" %}
 {% load endswith %}
 {% if request.user.is_authenticated %}
-  <div class="dropdown vh-100 pt-2 sidebar">
+  <div class="dropdown vh-100 sidebar">
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item {% if request.path|endswith:"home/" %}nav-active{% endif %}">
         <a href="{% url 'cafe:home' %}" class="nav-link link-dark align-center" aria-current="page">
