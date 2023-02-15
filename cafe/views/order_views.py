@@ -7,9 +7,7 @@ from cafe.views.views import UniversalListView
 
 
 class OrderListView(UniversalListView):
-    queryset = Order.objects.select_related("employee").prefetch_related(
-        "dishes"
-    )
+    queryset = Order.objects.select_related("employee")
     key_to_search = "created_at"
     paginate_by = 4
 
@@ -84,8 +82,11 @@ def delete_dish_from_order(request, order_pk, order_dish_pk, create):
         recipe_ingredient.ingredient.save()
     OrderDish.objects.get(id=order_dish_pk).delete()
     return redirect(
-        reverse_lazy("cafe:order-create", kwargs={
+        reverse_lazy(
+            "cafe:order-create",
+            kwargs={
             "pk": order_pk,
             "create": create
-        })
+            }
+        )
     )
