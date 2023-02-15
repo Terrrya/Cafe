@@ -1,0 +1,20 @@
+<div class="nav-link m-0 p-0">
+  {% if position_list %}
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:position-create' %}">Create new position</a>
+  {% endif %}
+  {% if employee_list %}
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:employee-create' %}">Create new employee</a>
+  {% endif %}
+  {% if dish_type_list %}
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:dish-type-create' %}">Create new dish-type</a>
+  {% endif %}
+  {% if ingredient_list %}
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:ingredient-create' %}">Create new ingredient</a>
+  {% endif %}
+  {% if dish_list or recipe_list %}
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:dish-create' %}">Create new dish</a>
+  {% endif %}
+  {% if order_list %}
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:order-create' pk=0 create='create' %}">Create new order</a>
+  {% endif %}
+</div>
