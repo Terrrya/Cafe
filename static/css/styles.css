@@ -1,5 +1,19 @@
 body {
     background-image: linear-gradient(to right, #f5f5f5, #9a7575);
+    /*{background-image: url("/static/img/log.png")*/
+}
+
+.first {
+    background-image: url("/static/img/log.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-login {
+    position: absolute;
+    top: 20em;
+    left: 13em;
 }
 
 .navbar {
@@ -8,7 +22,7 @@ body {
 
 .name1, .name2, .name3 {
     position: absolute;
-    font-size: 800%;
+    font-size: 600%;
     color: #d75c5c;
     text-shadow: 3px 3px 5px darkred;
     animation-name: login;
@@ -38,25 +52,21 @@ body {
 }
 
 .name1 {
-    top: 0.5em;
+    top: -0.25em;
 }
 
 .name2 {
-    top: 1.75em;
-    left: 1.5em;
+    top: 0.65em;
+    left: 0.75em;
 }
 
 .name3 {
-    top: 3em;
-    left: 3.3em;
+    top: 1.65em;
+    left: 1.35em;
 }
 
 .sidebar {
     position: fixed;
-}
-
-.login {
-    padding-top: 140px;
 }
 
 .nav-item {

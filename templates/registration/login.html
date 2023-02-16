@@ -1,27 +1,21 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content2 %}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6">
-        <span class="name1">Cafe</span>
-        <span class="name2">System</span>
-        <span class="name3">Management</span>
+  <div class="container-fluid first vh-100">
+    <span class="name1">Cafe</span>
+    <span class="name2">Management</span>
+    <span class="name3">System</span>
+    <div class="card card-login border-0 w-25">
+      <div class="card-top pt-1 m-2">
+        <h3 class="px-5">Please login</h3>
       </div>
-      <div class="col-sm-4">
-        <div class="card bg-opacity-50 nav-active border-0 mx-auto my-auto">
-          <div class="card-top pt-1 m-2">
-            <h3 class="px-5">Please login</h3>
-          </div>
-          <div class="card-body opacity-100">
-            <form action="" method="post" novalidate>
-              {% csrf_token %}
-              {{ form|crispy }}
-              <input class="btn btn-primary" type="Submit" value="Login">
-              <input type="hidden" name="next" value="{{ next }}">
-            </form>
-          </div>
-        </div>
+      <div class="card-body opacity-100">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input class="btn btn-primary" type="Submit" value="Login">
+          <input type="hidden" name="next" value="{{ next }}">
+        </form>
       </div>
     </div>
   </div>
