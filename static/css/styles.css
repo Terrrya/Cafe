@@ -6,9 +6,50 @@ body {
     color: #9a0d26;
 }
 
-/*.login {*/
-/*    position: fixed;*/
-/*}*/
+.name1, .name2, .name3 {
+    position: absolute;
+    font-size: 800%;
+    color: #d75c5c;
+    text-shadow: 3px 3px 5px darkred;
+    animation-name: login;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes login {
+    0% {
+        color: #a96666;
+    }
+    20% {
+        color: #b25959;
+    }
+    40% {
+        color: #c52c2c;
+    }
+    60% {
+        color: #9a0d26;
+    }
+    60% {
+        color: #c52c2c;
+    }
+    100% {
+        color: #b25959;
+    }
+}
+
+.name1 {
+    top: 0.5em;
+}
+
+.name2 {
+    top: 1.75em;
+    left: 1.5em;
+}
+
+.name3 {
+    top: 3em;
+    left: 3.3em;
+}
 
 .sidebar {
     position: fixed;
