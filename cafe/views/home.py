@@ -12,7 +12,7 @@ class Calendar(calendar.HTMLCalendar):
         if day == 0:
             return f"<td class='{self.cssclass_noday}'>&nbsp;</td>"
         else:
-            if day == timezone.now().day:
+            if day == timezone.localdate(timezone.now()).day:
                 return f"<td class='{self.cssclasses[weekday]} " \
                        f"today'>{day}</td>"
             return f"<td class='{self.cssclasses[weekday]}'>{day}</td>"
@@ -36,11 +36,14 @@ def home(request: HttpRequest) -> HttpResponse:
         if unpopular_count > popularity:
             unpopular_count = popularity
             unpopular_dish = dish
-    year, week, _ = timezone.now().isocalendar()
-    month = timezone.now().month
+    year, week, _ = timezone.localdate(timezone.now()).isocalendar()
+    month = timezone.localdate(timezone.now()).month
     cal = Calendar().formatmonth(theyear=year, themonth=month)
     week_income = order_total_price_income("week", week)
-    today_income = order_total_price_income("day", timezone.now().day)
+    today_income = order_total_price_income(
+        "day",
+        timezone.localdate(timezone.now()).day
+    )
     month_income = order_total_price_income("month", month)
     context = {
         "cal": cal,

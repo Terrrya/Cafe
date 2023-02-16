@@ -15,7 +15,7 @@ class EmployeeCreateView(generic.CreateView):
 
     def get_form(self, *args, **kwargs) -> ModelForm:
         form = super(EmployeeCreateView, self).get_form(*args, **kwargs)
-        form.fields["hiring_date"].initial = timezone.now()
+        form.fields["hiring_date"].initial = timezone.localdate(timezone.now())
         return form
 
 
@@ -38,7 +38,7 @@ class EmployeeUpdateView(generic.UpdateView):
 def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
     employee = Employee.objects.get(id=pk)
     if employee.date_of_dismissal is None:
-        employee.date_of_dismissal = timezone.now()
+        employee.date_of_dismissal = timezone.localdate(timezone.now())
     else:
         employee.date_of_dismissal = None
     employee.save()
