@@ -49,7 +49,7 @@ from cafe.views.recipe_views import (
     RecipeUpdateView,
     RecipeDeleteView
 )
-from cafe.views.views import home
+from cafe.views.home import home
 from cafe.views.order_dish_views import OrderDishCreateView
 
 app_name = "cafe"
