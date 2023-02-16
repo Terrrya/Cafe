@@ -3,13 +3,26 @@ from cafe.forms import SearchForm
 from cafe.models import Dish, Order
 from django.views import generic
 from django.utils import timezone
+import calendar
+
+
+class Calendar(calendar.HTMLCalendar):
+
+    def formatday(self, day, weekday):
+        if day == 0:
+            return f"<td class='{self.cssclass_noday}'>&nbsp;</td>"
+        else:
+            if day == timezone.now().day:
+                return f"<td class='{self.cssclasses[weekday]} " \
+                       f"today'>{day}</td>"
+            return f"<td class='{self.cssclasses[weekday]}'>{day}</td>"
 
 
 def home(request):
     popular_dish = Dish.objects.first()
     unpopular_dish = popular_dish
-    popular_count = popular_dish.orders.count()
-    unpopular_count = popular_count
+    popular_count = 0
+    unpopular_count = popular_dish.orders.count()
     for dish in Dish.objects.all():
         popularity = dish.orders.count()
         if popular_count < popularity:
@@ -18,7 +31,9 @@ def home(request):
         if unpopular_count > popularity:
             unpopular_count = popularity
             unpopular_dish = dish
-    _, week, _ = timezone.now().isocalendar()
+    year, week, _ = timezone.now().isocalendar()
+    month = timezone.now().month
+    cal = Calendar().formatmonth(theyear=year, themonth=month)
     week_orders = (Order.objects.filter(
         created_at__week=week
     ))
@@ -26,10 +41,11 @@ def home(request):
     today_orders = (Order.objects.filter(created_at__day=timezone.now().day))
     today_income = sum(order.total_price for order in today_orders)
     month_orders = (Order.objects.filter(
-        created_at__month=timezone.now().month
+        created_at__month=month
     ))
     month_income = sum(order.total_price for order in month_orders)
     context = {
+        "cal": cal,
         "unpopular_dish": unpopular_dish,
         "last_month_income": month_income,
         "today_income": today_income,

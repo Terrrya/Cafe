@@ -191,3 +191,20 @@ button:active {
     box-shadow: none;
     text-shadow: none;
 }
+
+.month {
+    text-align: center;
+    text-shadow: 3px 3px 5px lightgray;
+    /*background-image: linear-gradient(to right, #d75c5c, #9a0d26);*/
+    border-radius: 25px;
+}
+
+.mon, .tue, .wed, .thu, .fri, .sat, .sun {
+   padding: 5px 15px;
+}
+
+.today {
+    background: #d75c5c;
+    border-radius: 25px;
+    text-shadow: 3px 3px 5px darkred;
+}

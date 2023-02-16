@@ -2,24 +2,20 @@
 {% block content %}
   <div class="container-fluid">
     <div class="row">
-      <div class="col-4">
-        <div class="card border-0 mt-4">
+      <div class="col-8">
+        <div class="card border-0 mt-5">
           <div class="card-top pt-1 m-2 text-center"><h5>Today income: {{ today_income }}</h5></div>
           <div class="card-top pt-1 m-2 text-center"><h5>Week income: {{ last_week_income }}</h5></div>
           <div class="card-top pt-1 m-2 text-center"><h5>Month income: {{ last_month_income }}</h5></div>
         </div>
-        <div class="card border-0 mt-4">
-          <div class="card-top pt-1 m-2 text-center"><h5>Today menu has</h5></div>
-          <div class="card-body">
-            <ul>
-              <li>Pizza: {{ num_pizza }} dishes</li>
-              <li>Salad: {{ num_salad }} dishes</li>
-              <li>Soup: {{ num_soup }} dishes</li>
-              <li>Sushi: {{ num_sushi }} dishes</li>
-            </ul>
-          </div>
+      </div>
+      <div class="col-4">
+        <div class="mt-4">
+          {{ cal|safe }}
         </div>
+      </div>
     </div>
+    <div class="row">
       <div class="col-1"></div>
       <div class="col-3">
       <a class="text-decoration-none text-dark"
@@ -35,7 +31,6 @@
         </div>
       </a>
     </div>
-      <div class="col-1"></div>
       <div class="col-3">
         <a class="text-decoration-none text-dark"
            href="{% url 'cafe:dish-detail' pk=unpopular_dish.id %}">
@@ -49,6 +44,20 @@
             </div>
           </div>
         </a>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-4">
+        <div class="card border-0 mt-5">
+          <div class="card-top pt-1 m-2 text-center"><h5>Today menu has</h5></div>
+          <div class="card-body">
+            <ul>
+              <li>Pizza: {{ num_pizza }} dishes</li>
+              <li>Salad: {{ num_salad }} dishes</li>
+              <li>Soup: {{ num_soup }} dishes</li>
+              <li>Sushi: {{ num_sushi }} dishes</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
