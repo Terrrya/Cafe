@@ -3,6 +3,7 @@ from cafe.models import Order, OrderDish, Dish, Recipe
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.forms import ModelForm
 
 
 class OrderDishCreateView(generic.CreateView):
@@ -10,7 +11,7 @@ class OrderDishCreateView(generic.CreateView):
     template_name = "includes/form.html"
     fields = ["amount"]
 
-    def form_valid(self, form):
+    def form_valid(self, form: ModelForm) -> ModelForm | HttpResponseRedirect:
         form_fields = form.save(commit=False)
         if form_fields.amount <= 0:
             messages.warning(
@@ -36,7 +37,7 @@ class OrderDishCreateView(generic.CreateView):
         form_fields.save()
         return super().form_valid(form_fields)
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse_lazy(
             "cafe:order-create", kwargs={
                 "pk": self.kwargs["pk"],

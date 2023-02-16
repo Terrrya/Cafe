@@ -1,6 +1,5 @@
 from django.urls import path
 from django.contrib.auth import views
-
 from cafe.views.dish_type_views import (
     DishTypeCreateView,
     DishTypeListView,

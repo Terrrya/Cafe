@@ -4,6 +4,7 @@ from cafe.models import Order, OrderDish, Dish, Recipe
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from cafe.views.views import UniversalListView
+from django.http import HttpResponse, HttpRequest
 
 
 class OrderListView(UniversalListView):
@@ -11,7 +12,7 @@ class OrderListView(UniversalListView):
     key_to_search = "created_at"
     paginate_by = 4
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super(OrderListView, self).get_context_data(**kwargs)
         context["order_dishes_list"] = OrderDish.objects.select_related("dish")
         return context
@@ -22,7 +23,9 @@ class OrderDeleteView(generic.DeleteView):
     success_url = reverse_lazy("cafe:order-list")
 
 
-def create_new_order(request, pk, create):
+def create_new_order(
+        request: HttpRequest, pk: int, create: str
+) -> HttpResponse:
     if pk > 0:
         order = Order.objects.get(id=pk)
     else:
@@ -49,7 +52,7 @@ def create_new_order(request, pk, create):
     )
 
 
-def delivery(request, pk, create):
+def delivery(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     order = Order.objects.get(id=pk)
     order.delivery = not order.delivery
     order.save()
@@ -59,7 +62,9 @@ def delivery(request, pk, create):
     }))
 
 
-def select_dish(request, order_pk, dish_pk, create):
+def select_dish(
+        request: HttpRequest, order_pk: int, dish_pk: int, create: str
+) -> HttpResponse:
     url = reverse_lazy("cafe:order-create", kwargs={
         "pk": order_pk,
         "create": create
@@ -67,13 +72,15 @@ def select_dish(request, order_pk, dish_pk, create):
     return redirect(f"{url}?dish={dish_pk}")
 
 
-def cancel_order(request, pk, create):
+def cancel_order(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     if create == "create":
         Order.objects.get(id=pk).delete()
     return redirect(reverse_lazy("cafe:dish-list"))
 
 
-def delete_dish_from_order(request, order_pk, order_dish_pk, create):
+def delete_dish_from_order(
+        request: HttpRequest, order_pk: int, order_dish_pk: int, create: str
+) -> HttpResponse:
     recipe_ingredients = Recipe.objects.filter(
         dish_id=OrderDish.objects.get(id=order_dish_pk).dish.id
     )

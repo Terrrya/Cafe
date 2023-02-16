@@ -12,8 +12,8 @@ from cafe.models import (
     OrderDish
 )
 
+
 admin.site.register(DishType)
-# admin.site.register(Dish)
 admin.site.unregister(Group)
 
 

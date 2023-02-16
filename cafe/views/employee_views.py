@@ -2,10 +2,10 @@ from django.views import generic
 from cafe.forms import EmployeeForm, EmployeeUpdateForm
 from cafe.models import Employee
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from django.utils import timezone
-
 from cafe.views.views import UniversalListView
+from django.forms import ModelForm
 
 
 class EmployeeCreateView(generic.CreateView):
@@ -13,7 +13,7 @@ class EmployeeCreateView(generic.CreateView):
     form_class = EmployeeForm
     success_url = reverse_lazy("cafe:employee-list")
 
-    def get_form(self, *args, **kwargs):
+    def get_form(self, *args, **kwargs) -> ModelForm:
         form = super(EmployeeCreateView, self).get_form(*args, **kwargs)
         form.fields["hiring_date"].initial = timezone.now()
         return form
@@ -35,13 +35,14 @@ class EmployeeUpdateView(generic.UpdateView):
     success_url = reverse_lazy("cafe:employee-list")
 
 
-def dismissal_employee(request, pk):
+def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
     employee = Employee.objects.get(id=pk)
     if employee.date_of_dismissal is None:
         employee.date_of_dismissal = timezone.now()
     else:
         employee.date_of_dismissal = None
     employee.save()
+    print(type(request))
     return HttpResponseRedirect(
             f"{request.META.get('HTTP_REFERER')}"
         )

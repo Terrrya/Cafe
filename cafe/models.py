@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.urls import reverse
 from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 
 class Position(models.Model):
@@ -13,7 +14,7 @@ class Position(models.Model):
     class Meta:
         ordering = ["name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -39,7 +40,7 @@ class Employee(AbstractUser):
         verbose_name_plural = "employees"
         ordering = ["last_name", "first_name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
 
@@ -49,10 +50,10 @@ class DishType(models.Model):
     class Meta:
         ordering = ["name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("cafe:dish-type-list")
 
 
@@ -65,10 +66,10 @@ class Ingredient(models.Model):
     class Meta:
         ordering = ["name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("cafe:ingredient-list")
 
 
@@ -95,7 +96,7 @@ class Dish(models.Model):
         ordering = ["dish_type", "name"]
         verbose_name_plural = "dishes"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -134,14 +135,14 @@ class Order(models.Model):
     )
 
     @property
-    def total_price(self):
+    def total_price(self) -> Decimal:
         return sum(order_dish.dish.price * order_dish.amount
                    for order_dish in self.order_dish.select_related("dish"))
 
     class Meta:
         ordering = ["-created_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (f"Order at {self.created_at} "
                 f"({self.employee.first_name} {self.employee.last_name})")
 

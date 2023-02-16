@@ -1,12 +1,14 @@
 import calendar
+from decimal import Decimal
 from django.shortcuts import render
 from cafe.models import Dish, Order
 from django.utils import timezone
+from django.http import HttpRequest, HttpResponse
 
 
 class Calendar(calendar.HTMLCalendar):
 
-    def formatday(self, day, weekday):
+    def formatday(self, day: int, weekday: int) -> str:
         if day == 0:
             return f"<td class='{self.cssclass_noday}'>&nbsp;</td>"
         else:
@@ -16,12 +18,12 @@ class Calendar(calendar.HTMLCalendar):
             return f"<td class='{self.cssclasses[weekday]}'>{day}</td>"
 
 
-def order_total_price_income(key, value):
+def order_total_price_income(key: str, value: int) -> Decimal:
     orders = Order.objects.filter(**{f"created_at__{key}": value})
     return sum(order.total_price for order in orders)
 
 
-def home(request):
+def home(request: HttpRequest) -> HttpResponse:
     popular_dish = Dish.objects.first()
     unpopular_dish = popular_dish
     popular_count = 0

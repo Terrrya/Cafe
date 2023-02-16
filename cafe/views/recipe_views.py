@@ -1,22 +1,22 @@
 from django.views import generic
 from cafe.models import Dish, Ingredient, Recipe
 from django.urls import reverse_lazy
-
 from cafe.views.views import UniversalListView
+from django.forms import ModelForm
 
 
 class RecipeView(generic.CreateView):
     model = Recipe
     fields = ["ingredient", "amount"]
 
-    def get_form(self, form_class=None):
+    def get_form(self, form_class: ModelForm = None) -> ModelForm:
         form = super(RecipeView, self).get_form()
         dish = Dish.objects.get(id=self.kwargs["pk"])
         form.fields["ingredient"].queryset = form.fields["ingredient"].\
             queryset.exclude(name__in=dish.ingredients.values_list("name"))
         return form
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super(RecipeView, self).get_context_data(**kwargs)
         context["dish"] = Dish.objects.get(id=self.kwargs["pk"])
         context["dish_recipe_ingredients"] = Recipe.objects.filter(
@@ -24,13 +24,13 @@ class RecipeView(generic.CreateView):
         )
         return context
 
-    def form_valid(self, form):
+    def form_valid(self, form: ModelForm) -> ModelForm:
         form_fields = form.save(commit=False)
         form_fields.dish = Dish.objects.get(id=self.kwargs["pk"])
         form_fields.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse_lazy("cafe:dish-recipe", kwargs={
             "pk": self.kwargs["pk"]
         })
@@ -48,7 +48,7 @@ class RecipeUpdateView(generic.UpdateView):
     model = Recipe
     fields = ["ingredient", "amount"]
 
-    def get_form(self, *args, **kwargs):
+    def get_form(self, *args, **kwargs) -> ModelForm:
         form = super(RecipeUpdateView, self).get_form(*args, **kwargs)
         recipe = Recipe.objects.get(id=self.kwargs["pk"])
         new_queryset = form.fields["ingredient"].queryset.exclude(
@@ -64,7 +64,7 @@ class RecipeUpdateView(generic.UpdateView):
             )
         return form
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super(RecipeUpdateView, self).get_context_data(**kwargs)
         context["dish"] = Recipe.objects.get(id=self.kwargs["pk"]).dish
         context["dish_recipe_ingredients"] = Recipe.objects.filter(
@@ -72,7 +72,7 @@ class RecipeUpdateView(generic.UpdateView):
         )
         return context
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse_lazy("cafe:dish-recipe", kwargs={
             "pk": Recipe.objects.get(id=self.kwargs["pk"]).dish.id
         })
@@ -81,7 +81,7 @@ class RecipeUpdateView(generic.UpdateView):
 class RecipeDeleteView(generic.DeleteView):
     model = Recipe
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse_lazy("cafe:dish-recipe", kwargs={
             "pk": Recipe.objects.get(id=self.kwargs["pk"]).dish.id
         })

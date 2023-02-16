@@ -1,7 +1,6 @@
 from django.views import generic
 from cafe.models import DishType
 from django.urls import reverse_lazy
-
 from cafe.views.views import UniversalListView
 
 
