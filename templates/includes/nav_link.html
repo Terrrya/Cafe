@@ -11,7 +11,11 @@
   {% if ingredient_list %}
     <a class="text-decoration-none text-dark" href="{% url 'cafe:ingredient-create' %}">Create new ingredient</a>
   {% endif %}
-  {% if dish_list or recipe_list %}
+  {% if dish_list %}
+    <a class="text-decoration-none text-dark me-5" href="{% url 'cafe:order-create' pk=0 create='create' %}">Create new order</a>
+    <a class="text-decoration-none text-dark" href="{% url 'cafe:dish-create' %}">Create new dish</a>
+  {% endif %}
+  {% if recipe_list %}
     <a class="text-decoration-none text-dark" href="{% url 'cafe:dish-create' %}">Create new dish</a>
   {% endif %}
   {% if order_list %}
