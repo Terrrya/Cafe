@@ -4,9 +4,11 @@ from django.shortcuts import render
 from cafe.models import Dish, Order
 from django.utils import timezone
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-class Calendar(calendar.HTMLCalendar):
+class Calendar(LoginRequiredMixin, calendar.HTMLCalendar):
 
     def formatday(self, day: int, weekday: int) -> str:
         if day == 0:
@@ -23,6 +25,7 @@ def order_total_price_income(key: str, value: int) -> Decimal:
     return sum(order.total_price for order in orders)
 
 
+@login_required
 def home(request: HttpRequest) -> HttpResponse:
     popular_dish = Dish.objects.first()
     unpopular_dish = popular_dish

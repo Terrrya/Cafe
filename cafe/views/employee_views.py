@@ -6,9 +6,11 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from django.utils import timezone
 from cafe.views.views import UniversalListView
 from django.forms import ModelForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-class EmployeeCreateView(generic.CreateView):
+class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):
     model = Employee
     form_class = EmployeeForm
     success_url = reverse_lazy("cafe:employee-list")
@@ -19,22 +21,23 @@ class EmployeeCreateView(generic.CreateView):
         return form
 
 
-class EmployeeListView(UniversalListView):
+class EmployeeListView(LoginRequiredMixin, UniversalListView):
     queryset = Employee.objects.select_related("position")
     key_to_search = "last_name"
     paginate_by = 5
 
 
-class EmployeeDetailView(generic.DetailView):
+class EmployeeDetailView(LoginRequiredMixin, generic.DetailView):
     model = Employee
 
 
-class EmployeeUpdateView(generic.UpdateView):
+class EmployeeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Employee
     form_class = EmployeeUpdateForm
     success_url = reverse_lazy("cafe:employee-list")
 
 
+@login_required
 def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
     employee = Employee.objects.get(id=pk)
     if employee.date_of_dismissal is None:
@@ -48,6 +51,6 @@ def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
         )
 
 
-class EmployeeDeleteView(generic.DeleteView):
+class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Employee
     success_url = reverse_lazy("cafe:employee-list")

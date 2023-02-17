@@ -5,9 +5,11 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from cafe.views.views import UniversalListView
 from django.http import HttpResponse, HttpRequest
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-class OrderListView(UniversalListView):
+class OrderListView(LoginRequiredMixin, UniversalListView):
     queryset = Order.objects.select_related("employee")
     key_to_search = "created_at"
     paginate_by = 4
@@ -18,11 +20,12 @@ class OrderListView(UniversalListView):
         return context
 
 
-class OrderDeleteView(generic.DeleteView):
+class OrderDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Order
     success_url = reverse_lazy("cafe:order-list")
 
 
+@login_required
 def create_new_order(
         request: HttpRequest, pk: int, create: str
 ) -> HttpResponse:
@@ -52,6 +55,7 @@ def create_new_order(
     )
 
 
+@login_required
 def delivery(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     order = Order.objects.get(id=pk)
     order.delivery = not order.delivery
@@ -62,6 +66,7 @@ def delivery(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     }))
 
 
+@login_required
 def select_dish(
         request: HttpRequest, order_pk: int, dish_pk: int, create: str
 ) -> HttpResponse:
@@ -72,12 +77,14 @@ def select_dish(
     return redirect(f"{url}?dish={dish_pk}")
 
 
+@login_required
 def cancel_order(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     if create == "create":
         Order.objects.get(id=pk).delete()
     return redirect(reverse_lazy("cafe:dish-list"))
 
 
+@login_required
 def delete_dish_from_order(
         request: HttpRequest, order_pk: int, order_dish_pk: int, create: str
 ) -> HttpResponse:

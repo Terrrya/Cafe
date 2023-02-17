@@ -4,9 +4,10 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.forms import ModelForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class OrderDishCreateView(generic.CreateView):
+class OrderDishCreateView(LoginRequiredMixin, generic.CreateView):
     model = OrderDish
     template_name = "includes/form.html"
     fields = ["amount"]

@@ -3,9 +3,11 @@ from cafe.models import Dish, Ingredient, Recipe
 from django.urls import reverse_lazy
 from cafe.views.views import UniversalListView
 from django.forms import ModelForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-class RecipeView(generic.CreateView):
+class RecipeView(LoginRequiredMixin, generic.CreateView):
     model = Recipe
     fields = ["ingredient", "amount"]
 
@@ -36,7 +38,7 @@ class RecipeView(generic.CreateView):
         })
 
 
-class RecipeListView(UniversalListView):
+class RecipeListView(LoginRequiredMixin, UniversalListView):
     queryset = Recipe.objects.order_by("dish__name").values_list(
         "dish__name"
     ).distinct()
@@ -44,7 +46,7 @@ class RecipeListView(UniversalListView):
     paginate_by = 4
 
 
-class RecipeUpdateView(generic.UpdateView):
+class RecipeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Recipe
     fields = ["ingredient", "amount"]
 
@@ -78,7 +80,7 @@ class RecipeUpdateView(generic.UpdateView):
         })
 
 
-class RecipeDeleteView(generic.DeleteView):
+class RecipeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Recipe
 
     def get_success_url(self) -> str:
