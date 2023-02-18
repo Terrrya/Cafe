@@ -45,7 +45,6 @@ def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
     else:
         employee.date_of_dismissal = None
     employee.save()
-    print(type(request))
     return HttpResponseRedirect(
             f"{request.META.get('HTTP_REFERER')}"
         )
