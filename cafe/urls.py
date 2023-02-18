@@ -130,7 +130,7 @@ urlpatterns = [
         name="employee-delete"
     ),
     path(
-        "employees/<int:pk>/dismiss",
+        "employees/<int:pk>/dismiss/",
         dismissal_employee,
         name="employee-dismissal"
     ),
