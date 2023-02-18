@@ -12,7 +12,7 @@ class DishCreateView(LoginRequiredMixin, generic.CreateView):
     def get_success_url(self) -> str:
         return reverse_lazy(
             "cafe:dish-recipe",
-            kwargs={"pk": Dish.objects.get(name=self.request.POST["name"]).id}
+            kwargs={"pk": self.object.id}
         )
 
 
@@ -33,7 +33,7 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self) -> str:
         return reverse_lazy(
             "cafe:dish-recipe",
-            kwargs={"pk": Dish.objects.get(name=self.request.POST["name"]).id}
+            kwargs={"pk": self.object.id}
         )
 
 
