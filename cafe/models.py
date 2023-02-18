@@ -32,7 +32,7 @@ class Employee(AbstractUser):
         blank=True,
         null=True
     )
-    hiring_date = models.DateField(default=timezone.localdate(timezone.now()))
+    hiring_date = models.DateField(default=timezone.now)
     date_of_dismissal = models.DateField(null=True, blank=True)
 
     class Meta:
