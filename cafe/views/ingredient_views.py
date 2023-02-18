@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from cafe.views.views import UniversalListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
     model = Ingredient
     fields = "__all__"
