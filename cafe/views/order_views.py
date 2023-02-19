@@ -99,8 +99,8 @@ def delete_dish_from_order(
         reverse_lazy(
             "cafe:order-create",
             kwargs={
-            "pk": order_pk,
-            "create": create
+                "pk": order_pk,
+                "create": create
             }
         )
     )
