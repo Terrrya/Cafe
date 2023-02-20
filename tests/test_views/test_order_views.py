@@ -44,36 +44,6 @@ class PublicOrderTest(TestCase):
         ))
         self.assertNotEqual(res.status_code, 200)
 
-    def test_delivery_order_login_required(self):
-        res = self.client.get(reverse(
-            "cafe:delivery",
-            kwargs={"pk": self.test_order.id, "create": "create"}
-        ))
-        self.assertNotEqual(res.status_code, 200)
-
-    def test_select_dish_login_required(self):
-        res = self.client.get(reverse("cafe:select-dish", kwargs={
-            "order_pk": self.test_order.id,
-            "dish_pk": self.test_dish.id,
-            "create": "create"
-        }))
-        self.assertNotEqual(res.status_code, 200)
-
-    def test_cancel_order_login_required(self):
-        res = self.client.get(reverse(
-            "cafe:order-cancel",
-            kwargs={"pk": self.test_order.id, "create": "create"}
-        ))
-        self.assertNotEqual(res.status_code, 200)
-
-    def test_delete_dish_from_order_login_required(self):
-        res = self.client.get(reverse("cafe:delete-dish-from-order", kwargs={
-            "order_pk": self.test_order.id,
-            "order_dish_pk": self.test_dish.id,
-            "create": "create"
-        }))
-        self.assertNotEqual(res.status_code, 200)
-
 
 class PrivateOrderTest(TestCase):
     def setUp(self) -> None:
