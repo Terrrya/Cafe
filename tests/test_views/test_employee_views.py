@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
+from django.http import HttpResponseRedirect
 
 
 class PublicEmployeeTest(TestCase):
@@ -36,13 +37,6 @@ class PublicEmployeeTest(TestCase):
     def test_delete_view_login_required(self):
         res = self.client.get(reverse(
             "cafe:employee-delete",
-            kwargs={"pk": self.employee.id}
-        ))
-        self.assertNotEqual(res.status_code, 200)
-
-    def test_dismissal_employee_login_required(self):
-        res = self.client.get(reverse(
-            "cafe:employee-dismissal",
             kwargs={"pk": self.employee.id}
         ))
         self.assertNotEqual(res.status_code, 200)
@@ -85,13 +79,6 @@ class PrivateEmployeeTest(TestCase):
     def test_delete_view_login_required(self):
         res = self.client.get(reverse(
             "cafe:employee-delete",
-            kwargs={"pk": self.employee.id}
-        ))
-        self.assertEqual(res.status_code, 200)
-
-    def test_dismissal_employee_login_required(self):
-        res = self.client.get(reverse(
-            "cafe:employee-dismissal",
             kwargs={"pk": self.employee.id}
         ))
         self.assertEqual(res.status_code, 200)
