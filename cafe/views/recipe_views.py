@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from cafe.views.views import UniversalListView
 from django.forms import ModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 
 
 class RecipeView(LoginRequiredMixin, generic.CreateView):
