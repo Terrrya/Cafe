@@ -20,17 +20,14 @@ class Position(models.Model):
 
 class Employee(AbstractUser):
     image = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to="avatar/",
-        default="avatar.png"
+        null=True, blank=True, upload_to="avatar/", default="avatar.png"
     )
     position = models.ForeignKey(
         to=Position,
         on_delete=models.CASCADE,
         related_name="employees",
         blank=True,
-        null=True
+        null=True,
     )
     hiring_date = models.DateField(default=timezone.now)
     date_of_dismissal = models.DateField(null=True, blank=True)
@@ -59,9 +56,7 @@ class DishType(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    amount_of = models.FloatField(validators=[
-        MinValueValidator(0)
-    ])
+    amount_of = models.FloatField(validators=[MinValueValidator(0)])
 
     class Meta:
         ordering = ["name"]
@@ -77,19 +72,17 @@ class Dish(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="dish/")
     name = models.CharField(max_length=255, unique=True)
     dish_type = models.ForeignKey(
-        to=DishType,
-        on_delete=models.CASCADE,
-        related_name="dishes"
+        to=DishType, on_delete=models.CASCADE, related_name="dishes"
     )
     ingredients = models.ManyToManyField(
         to=Ingredient,
         related_name="dishes",
         through="Recipe",
-        through_fields=["dish", "ingredient"]
+        through_fields=["dish", "ingredient"],
     )
-    price = models.DecimalField(max_digits=6, decimal_places=2, validators=[
-        MinValueValidator(0)
-    ])
+    price = models.DecimalField(
+        max_digits=6, decimal_places=2, validators=[MinValueValidator(0)]
+    )
     description = models.TextField()
 
     class Meta:
@@ -107,13 +100,9 @@ class Recipe(models.Model):
         related_name="recipe"
     )
     ingredient = models.ForeignKey(
-        to=Ingredient,
-        on_delete=models.PROTECT,
-        related_name="recipes"
+        to=Ingredient, on_delete=models.PROTECT, related_name="recipes"
     )
-    amount = models.FloatField(validators=[
-        MinValueValidator(0)
-    ])
+    amount = models.FloatField(validators=[MinValueValidator(0)])
 
     class Meta:
         unique_together = ["dish", "ingredient"]
@@ -125,7 +114,7 @@ class Order(models.Model):
         to=Dish,
         related_name="orders",
         through="OrderDish",
-        through_fields=["order", "dish"]
+        through_fields=["order", "dish"],
     )
     delivery = models.BooleanField(default=False)
     employee = models.ForeignKey(
@@ -136,15 +125,19 @@ class Order(models.Model):
 
     @property
     def total_price(self) -> Decimal:
-        return sum(order_dish.dish.price * order_dish.amount
-                   for order_dish in self.order_dish.select_related("dish"))
+        return sum(
+            order_dish.dish.price * order_dish.amount
+            for order_dish in self.order_dish.select_related("dish")
+        )
 
     class Meta:
         ordering = ["-created_at"]
 
     def __str__(self) -> str:
-        return (f"Order at {self.created_at} "
-                f"({self.employee.first_name} {self.employee.last_name})")
+        return (
+            f"Order at {self.created_at} "
+            f"({self.employee.first_name} {self.employee.last_name})"
+        )
 
 
 class OrderDish(models.Model):
@@ -154,9 +147,6 @@ class OrderDish(models.Model):
         related_name="order_dish",
     )
     dish = models.ForeignKey(
-        to=Dish,
-        on_delete=models.CASCADE,
-        related_name="order_dish",
-        null=True
+        to=Dish, on_delete=models.CASCADE, related_name="order_dish", null=True
     )
     amount = models.IntegerField()

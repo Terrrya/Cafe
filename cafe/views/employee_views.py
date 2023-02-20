@@ -45,9 +45,7 @@ def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
     else:
         employee.date_of_dismissal = None
     employee.save()
-    return HttpResponseRedirect(
-            f"{request.META.get('HTTP_REFERER')}"
-        )
+    return HttpResponseRedirect(f"{request.META.get('HTTP_REFERER')}")
 
 
 class EmployeeDeleteView(LoginRequiredMixin, generic.DeleteView):

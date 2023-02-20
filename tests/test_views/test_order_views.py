@@ -20,7 +20,7 @@ class PublicOrderTest(TestCase):
         self.test_order = Order.objects.create(
             employee=test_employee
         )
-        test_order_dish = OrderDish(
+        OrderDish(
             order=self.test_order,
             dish=self.test_dish,
             amount=1
@@ -61,7 +61,7 @@ class PrivateOrderTest(TestCase):
         self.test_order = Order.objects.create(
             employee=self.test_employee
         )
-        test_order_dish = OrderDish.objects.create(
+        OrderDish.objects.create(
             order=self.test_order,
             dish=self.test_dish,
             amount=1
@@ -95,7 +95,7 @@ class PrivateOrderTest(TestCase):
         self.assertEqual(res.status_code, 200)
 
     def test_create_new_order_pk_is_0(self):
-        res = self.client.get(
+        self.client.get(
             reverse(
                 "cafe:order-create",
                 kwargs={"pk": 0, "create": "create"}
@@ -104,7 +104,7 @@ class PrivateOrderTest(TestCase):
         self.assertEqual(len(Order.objects.all()), 2)
 
     def test_create_new_order_pk_is_not_0(self):
-        res = self.client.get(
+        self.client.get(
             reverse(
                 "cafe:order-create",
                 kwargs={"pk": 1, "create": "create"}
@@ -136,7 +136,7 @@ class PrivateOrderTest(TestCase):
     def test_delivery_when_order_delivery_is_true(self):
         self.test_order.delivery = True
         self.test_order.save()
-        res = self.client.get(reverse(
+        self.client.get(reverse(
             "cafe:delivery",
             kwargs={"pk": self.test_order.id, "create": "create"}
         ))
@@ -146,7 +146,7 @@ class PrivateOrderTest(TestCase):
     def test_delivery_when_order_delivery_is_false(self):
         self.test_order.delivery = False
         self.test_order.save()
-        res = self.client.get(reverse(
+        self.client.get(reverse(
             "cafe:delivery",
             kwargs={"pk": self.test_order.id, "create": "create"}
         ))
@@ -196,13 +196,13 @@ class PrivateOrderTest(TestCase):
             name="test ingredient",
             amount_of=10
         )
-        test_recipe = Recipe.objects.create(
+        Recipe.objects.create(
             dish=self.test_dish,
             ingredient=test_ingredient,
             amount=3
         )
         self.test_dish.ingredients.set([test_ingredient])
-        res = self.client.get(reverse("cafe:delete-dish-from-order", kwargs={
+        self.client.get(reverse("cafe:delete-dish-from-order", kwargs={
             "order_pk": self.test_order.id,
             "order_dish_pk": self.test_dish.id,
             "create": "create"

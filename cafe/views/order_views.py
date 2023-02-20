@@ -46,13 +46,9 @@ def create_new_order(
         "order": order,
         "order_dish_list": order_dish_list,
         "dish_list": dish_list,
-        "create": create
+        "create": create,
     }
-    return render(
-        request,
-        "cafe/order_dishes_create.html",
-        context
-    )
+    return render(request, "cafe/order_dishes_create.html", context)
 
 
 @login_required
@@ -60,19 +56,17 @@ def delivery(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     order = Order.objects.get(id=pk)
     order.delivery = not order.delivery
     order.save()
-    return redirect(reverse_lazy("cafe:order-create", kwargs={
-        "pk": pk,
-        "create": create
-    }))
+    return redirect(
+        reverse_lazy("cafe:order-create", kwargs={"pk": pk, "create": create})
+    )
 
 
 @login_required
 def select_dish(
-        request: HttpRequest, order_pk: int, dish_pk: int, create: str
+    request: HttpRequest, order_pk: int, dish_pk: int, create: str
 ) -> HttpResponse:
     url = reverse_lazy("cafe:order-create", kwargs={
-        "pk": order_pk,
-        "create": create
+        "pk": order_pk, "create": create
     })
     return redirect(f"{url}?dish={dish_pk}")
 
@@ -86,7 +80,7 @@ def cancel_order(request: HttpRequest, pk: int, create: str) -> HttpResponse:
 
 @login_required
 def delete_dish_from_order(
-        request: HttpRequest, order_pk: int, order_dish_pk: int, create: str
+    request: HttpRequest, order_pk: int, order_dish_pk: int, create: str
 ) -> HttpResponse:
     recipe_ingredients = Recipe.objects.filter(
         dish_id=OrderDish.objects.get(id=order_dish_pk).dish.id
@@ -95,12 +89,6 @@ def delete_dish_from_order(
         recipe_ingredient.ingredient.amount_of += recipe_ingredient.amount
         recipe_ingredient.ingredient.save()
     OrderDish.objects.get(id=order_dish_pk).delete()
-    return redirect(
-        reverse_lazy(
-            "cafe:order-create",
-            kwargs={
-                "pk": order_pk,
-                "create": create
-            }
-        )
-    )
+    return redirect(reverse_lazy("cafe:order-create", kwargs={
+        "pk": order_pk, "create": create
+    }))

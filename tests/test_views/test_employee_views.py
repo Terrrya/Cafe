@@ -84,7 +84,7 @@ class PrivateEmployeeTest(TestCase):
         self.assertEqual(res.status_code, 200)
 
     def test_dismissal_employee_add_date_of_dismissal(self):
-        res = self.client.get(reverse(
+        self.client.get(reverse(
             "cafe:employee-dismissal",
             kwargs={"pk": self.employee.id}
         ))
@@ -94,7 +94,7 @@ class PrivateEmployeeTest(TestCase):
     def test_dismissal_employee_remove_date_of_dismissal(self):
         self.employee.date_of_dismissal = timezone.now()
         self.employee.save()
-        res = self.client.get(reverse(
+        self.client.get(reverse(
             "cafe:employee-dismissal",
             kwargs={"pk": self.employee.id}
         ))

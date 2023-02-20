@@ -10,10 +10,7 @@ class DishCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ["image", "name", "dish_type", "price", "description"]
 
     def get_success_url(self) -> str:
-        return reverse_lazy(
-            "cafe:dish-recipe",
-            kwargs={"pk": self.object.id}
-        )
+        return reverse_lazy("cafe:dish-recipe", kwargs={"pk": self.object.id})
 
 
 class DishListView(LoginRequiredMixin, UniversalListView):
@@ -31,10 +28,7 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     fields = ["image", "name", "dish_type", "price", "description"]
 
     def get_success_url(self) -> str:
-        return reverse_lazy(
-            "cafe:dish-recipe",
-            kwargs={"pk": self.object.id}
-        )
+        return reverse_lazy("cafe:dish-recipe", kwargs={"pk": self.object.id})
 
 
 class DishDeleteView(LoginRequiredMixin, generic.DeleteView):

@@ -25,13 +25,14 @@ class OrderDishCreateView(LoginRequiredMixin, generic.CreateView):
             dish__name=form_fields.dish.name
         )
         for recipe_ingredient in recipe_ingredients:
-            recipe_ingredient.ingredient.amount_of -= \
+            recipe_ingredient.ingredient.amount_of -= (
                 recipe_ingredient.amount * form_fields.amount
+            )
             if recipe_ingredient.ingredient.amount_of < 0:
                 messages.warning(
                     self.request,
                     "Not enough ingredient: "
-                    f"{recipe_ingredient.ingredient.name} in warehouse"
+                    f"{recipe_ingredient.ingredient.name} in warehouse",
                 )
                 return HttpResponseRedirect(self.get_success_url())
             recipe_ingredient.ingredient.save()
@@ -40,8 +41,8 @@ class OrderDishCreateView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self) -> str:
         return reverse_lazy(
-            "cafe:order-create", kwargs={
-                "pk": self.kwargs["pk"],
-                "create": self.request.POST["create"]
-            }
+            "cafe:order-create",
+            kwargs={"pk": self.kwargs["pk"], "create": self.request.POST[
+                "create"
+            ]}
         )

@@ -70,7 +70,7 @@ class PrivateIngredientTest(TestCase):
             name="test ingredient",
             amount_of=1
         )
-        recipe_ingredient = Recipe.objects.create(
+        Recipe.objects.create(
             dish=self.test_dish,
             ingredient=self.test_ingredient,
             amount=1

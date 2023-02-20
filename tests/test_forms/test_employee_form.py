@@ -31,6 +31,6 @@ class EmployeeFormTests(TestCase):
         self.form = EmployeeForm(data=self.form_data, files=self.image_data)
         self.form_data.update(self.image_data)
 
-    def test_first_Last_name_position_hiring_date_is_valid(self):
+    def test_first_last_name_position_hiring_date_is_valid(self):
         self.assertTrue(self.form.is_valid())
         self.assertEqual(self.form.cleaned_data, self.form_data)

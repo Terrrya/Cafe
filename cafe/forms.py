@@ -16,7 +16,7 @@ class EmployeeForm(UserCreationForm):
             "last_name",
             "email",
             "position",
-            "hiring_date"
+            "hiring_date",
         )
 
 
@@ -25,8 +25,7 @@ class EmployeeUpdateForm(forms.ModelForm):
         widget=forms.DateInput(attrs=dict(type="date"))
     )
     date_of_dismissal = forms.DateField(
-        widget=forms.DateInput(attrs=dict(type="date")),
-        required=False
+        widget=forms.DateInput(attrs=dict(type="date")), required=False
     )
 
     class Meta:
@@ -38,7 +37,7 @@ class EmployeeUpdateForm(forms.ModelForm):
             "last_name",
             "position",
             "hiring_date",
-            "date_of_dismissal"
+            "date_of_dismissal",
         )
 
 
@@ -47,9 +46,11 @@ class SearchForm(forms.Form):
         max_length=255,
         label="",
         required=False,
-        widget=forms.TextInput(attrs={
-            "placeholder": "Search here",
-            "size": "40",
-            "class": "search textbox shadow-none"
-        })
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search here",
+                "size": "40",
+                "class": "search textbox shadow-none",
+            }
+        ),
     )

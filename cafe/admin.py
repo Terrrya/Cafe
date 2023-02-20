@@ -9,7 +9,7 @@ from cafe.models import (
     Dish,
     Order,
     Recipe,
-    OrderDish
+    OrderDish,
 )
 
 
@@ -20,9 +20,7 @@ admin.site.unregister(Group)
 @admin.register(Employee)
 class EmployeeAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("position",)
-    fieldsets = UserAdmin.fieldsets + (
-        ("Staff", {"fields": ("position",)}),
-    )
+    fieldsets = UserAdmin.fieldsets + (("Staff", {"fields": ("position",)}),)
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
             (

@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 
 
 class Calendar(LoginRequiredMixin, calendar.HTMLCalendar):
-
     def formatday(self, day: int, weekday: int) -> str:
         if day == 0:
             return f"<td class='{self.cssclass_noday}'>&nbsp;</td>"
@@ -44,8 +43,7 @@ def home(request: HttpRequest) -> HttpResponse:
     cal = Calendar().formatmonth(theyear=year, themonth=month)
     week_income = order_total_price_income("week", week)
     today_income = order_total_price_income(
-        "day",
-        timezone.localdate(timezone.now()).day
+        "day", timezone.localdate(timezone.now()).day
     )
     month_income = order_total_price_income("month", month)
     context = {
@@ -58,6 +56,6 @@ def home(request: HttpRequest) -> HttpResponse:
         "num_sushi": Dish.objects.filter(dish_type__name="sushi").count(),
         "num_salad": Dish.objects.filter(dish_type__name="salad").count(),
         "num_pizza": Dish.objects.filter(dish_type__name="pizza").count(),
-        "num_soup": Dish.objects.filter(dish_type__name="soup").count()
+        "num_soup": Dish.objects.filter(dish_type__name="soup").count(),
     }
     return render(request, "cafe/home.html", context=context)
