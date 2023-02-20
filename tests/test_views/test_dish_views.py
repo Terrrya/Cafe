@@ -99,5 +99,3 @@ class PrivateDishTest(TestCase):
             kwargs={"pk": self.dish.id}
         ))
         self.assertEqual(res.status_code, 200)
-
-
