@@ -45,6 +45,7 @@ class PublicEmployeeTest(TestCase):
             "cafe:employee-dismissal",
             kwargs={"pk": self.employee.id}
         ))
+        self.assertNotEqual(res.status_code, 200)
 
 
 class PrivateEmployeeTest(TestCase):
@@ -93,6 +94,7 @@ class PrivateEmployeeTest(TestCase):
             "cafe:employee-dismissal",
             kwargs={"pk": self.employee.id}
         ))
+        self.assertEqual(res.status_code, 200)
 
     def test_dismissal_employee_add_date_of_dismissal(self):
         res = self.client.get(reverse(
