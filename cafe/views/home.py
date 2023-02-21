@@ -28,18 +28,23 @@ def order_total_price_income(key: str, value: int) -> Decimal:
 
 @login_required
 def home(request: HttpRequest) -> HttpResponse:
-    popular_dish = Dish.objects.first()
-    unpopular_dish = popular_dish
-    popular_count = 0
-    unpopular_count = popular_dish.orders.count()
-    for dish in Dish.objects.all():
-        popularity = dish.orders.count()
-        if popular_count < popularity:
-            popular_dish = dish
-            popular_count = popularity
-        if unpopular_count > popularity:
-            unpopular_count = popularity
-            unpopular_dish = dish
+    dishes = Dish.objects.all()
+    orders = Order.objects.all()
+    if orders:
+        popular_dish = dishes.first()
+        unpopular_dish = popular_dish
+        popular_count = 0
+        unpopular_count = popular_dish.orders.count()
+        for dish in dishes:
+            popularity = dish.orders.count()
+            if popular_count < popularity:
+                popular_dish = dish
+                popular_count = popularity
+            if unpopular_count > popularity:
+                unpopular_count = popularity
+                unpopular_dish = dish
+    else:
+        popular_dish = unpopular_dish = "Unknown"
     year, week, _ = timezone.localdate(timezone.now()).isocalendar()
     month = timezone.localdate(timezone.now()).month
     cal = Calendar().formatmonth(theyear=year, themonth=month)

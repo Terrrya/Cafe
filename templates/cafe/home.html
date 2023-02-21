@@ -15,36 +15,43 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-1"></div>
-      <div class="col-3">
-      <a class="text-decoration-none text-dark"
-         href="{% url 'cafe:dish-detail' pk=popular_dish.id %}">
-        <div class="card border-0 mt-4">
-        <div class="card-top pt-1 m-2 text-center"><h5>Most popular dish</h5></div>
-          <img class="mx-auto" src="{% if popular_dish.image %}{{ popular_dish.image.url }}{% endif %}" height="145" alt="Dish">
-          <div class="card-body">
-            {{ popular_dish.dish_type }}
-            <p class="card-text">{{ popular_dish.name|upper }}</p>
-            <p class="card-text">{{ popular_dish.price }}</p>
-          </div>
+      {%  if popular_dish == "Unknown" %}
+        <div class="col-6">
+          <h3>You have no orders yet</h3>
         </div>
-      </a>
-    </div>
-      <div class="col-3">
+      {% else %}
+        <div class="col-3">
         <a class="text-decoration-none text-dark"
-           href="{% url 'cafe:dish-detail' pk=unpopular_dish.id %}">
+           href="{% url 'cafe:dish-detail' pk=popular_dish.id %}">
           <div class="card border-0 mt-4">
-          <div class="card-top pt-1 m-2 text-center"><h5>Most unpopular dish</h5></div>
-            <img class="mx-auto" src="{% if unpopular_dish.image %}{{ unpopular_dish.image.url }}{% endif %}" height="145" alt="Dish">
+          <div class="card-top pt-1 m-2 text-center"><h5>Most popular dish</h5></div>
+            <img class="mx-auto" src="{% if popular_dish.image %}{{ popular_dish.image.url }}{% endif %}" height="145" alt="Dish">
             <div class="card-body">
-              {{ unpopular_dish.dish_type }}
-              <p class="card-text">{{ unpopular_dish.name|upper }}</p>
-              <p class="card-text">{{ unpopular_dish.price }}</p>
+              {{ popular_dish.dish_type }}
+              <p class="card-text">{{ popular_dish.name|upper }}</p>
+              <p class="card-text">{{ popular_dish.price }}</p>
             </div>
           </div>
         </a>
       </div>
+        <div class="col-3">
+          <a class="text-decoration-none text-dark"
+             href="{% url 'cafe:dish-detail' pk=unpopular_dish.id %}">
+            <div class="card border-0 mt-4">
+            <div class="card-top pt-1 m-2 text-center"><h5>Most unpopular dish</h5></div>
+              <img class="mx-auto" src="{% if unpopular_dish.image %}{{ unpopular_dish.image.url }}{% endif %}" height="145" alt="Dish">
+              <div class="card-body">
+                {{ unpopular_dish.dish_type }}
+                <p class="card-text">{{ unpopular_dish.name|upper }}</p>
+                <p class="card-text">{{ unpopular_dish.price }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endif %}
       <div class="col-1"></div>
       <div class="col-4">
         <div class="card border-0 mt-5">
