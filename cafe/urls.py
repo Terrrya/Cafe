@@ -55,8 +55,8 @@ from cafe.views.recipe_views import (
 app_name = "cafe"
 
 urlpatterns = [
-    path("", views.LoginView.as_view(), name="index"),
-    path("home/", home, name="home"),
+    # path("", views.LoginView.as_view(), name="index"),
+    path("", home, name="home"),
     path(
         "positions/create/",
         PositionCreateView.as_view(),
