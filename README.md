@@ -1,13 +1,18 @@
 # Cafe mangment system
-This project help restaurants, cafes, suhi-bars etc manage their employee, warehouse, orders. You can manage menu with dishes and recipes for them, hire new employees and dismiss them, create orders and don't be afraid if ingredients not enough in the warehouse.
+This project help restaurants, cafes, sushi-bars etc. manage their employee, warehouse, orders. You can manage menu with dishes and recipes for them, hire new employees and dismiss them, create orders and don't be afraid if ingredients not enough in the warehouse.
 
-![cafe](https://user-images.githubusercontent.com/113538849/219475569-fd3af513-3447-41c1-b90e-f6bf3178f1ee.svg)
+![cafe_structure.svg](cafe_structure.svg)
 
 
-##To run the project
+## Check It
+
+[Cafe management system deployed to Render](LINK_HERE)
+
+
+## To run the project
 1. Clone the repo
     ```
-    git clone the-copied-link
+    git clone the_copied_link
     ```
 2. Python 3 must be installed
 3. Open the project folder in your IDE
@@ -18,10 +23,11 @@ This project help restaurants, cafes, suhi-bars etc manage their employee, wareh
     source venv/bin/activate (on macOS)
     pip install -r requirements.txt
     python manage.py migrate
+    python manage.py runserver # starts Django server
     
     ```
 5. If you want to use DEMO please load fixture with some example.
-6. To load fixture ppen a terminal in the project folder and run
+6. To load fixture open a terminal in the project folder and run
     ```
     python manage.py loaddata cafe_data.json
     ```
@@ -29,3 +35,14 @@ This project help restaurants, cafes, suhi-bars etc manage their employee, wareh
     login: admin.user
     pass: 1qazcde3
     Or you always can create new superuser/employee to use.
+
+## Features
+
+- Authentication functionality for Employee/User
+- Powerful managing ingredients, dishes, orders directly from website
+- Control for amount of ingredients
+- Admin panel for advanced managing
+
+## Demo
+
+![Demo.png](Demo.png)
