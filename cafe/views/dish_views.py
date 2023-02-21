@@ -1,8 +1,9 @@
-from django.views import generic
-from cafe.models import Dish
-from django.urls import reverse_lazy
-from cafe.views.views import UniversalListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views import generic
+
+from cafe.models import Dish
+from cafe.views.views import UniversalListView
 
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):

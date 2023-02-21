@@ -1,6 +1,7 @@
-from cafe.forms import SearchForm
-from django.views import generic
 from django.db.models import QuerySet
+from django.views import generic
+
+from cafe.forms import SearchForm
 
 
 class UniversalListView(generic.ListView):

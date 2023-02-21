@@ -1,10 +1,11 @@
-from django.views import generic
-from cafe.models import Order, OrderDish, Dish, Recipe
-from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.forms import ModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import ModelForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views import generic
+
+from cafe.models import Order, OrderDish, Dish, Recipe
 
 
 class OrderDishCreateView(LoginRequiredMixin, generic.CreateView):

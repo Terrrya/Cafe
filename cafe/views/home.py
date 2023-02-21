@@ -1,11 +1,13 @@
 import calendar
 from decimal import Decimal
-from django.shortcuts import render
-from cafe.models import Dish, Order
-from django.utils import timezone
-from django.http import HttpRequest, HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
+from django.utils import timezone
+
+from cafe.models import Dish, Order
 
 
 class Calendar(LoginRequiredMixin, calendar.HTMLCalendar):

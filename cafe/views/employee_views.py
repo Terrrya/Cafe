@@ -1,13 +1,14 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import ModelForm
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
+from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import generic
+
 from cafe.forms import EmployeeForm, EmployeeUpdateForm
 from cafe.models import Employee
-from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from django.utils import timezone
 from cafe.views.views import UniversalListView
-from django.forms import ModelForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 
 
 class EmployeeCreateView(LoginRequiredMixin, generic.CreateView):

@@ -1,12 +1,13 @@
-from django.views import generic
-from django.shortcuts import redirect
-from cafe.models import Order, OrderDish, Dish, Recipe
-from django.urls import reverse_lazy
-from django.shortcuts import render
-from cafe.views.views import UniversalListView
-from django.http import HttpResponse, HttpRequest
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpRequest
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import generic
+
+from cafe.models import Order, OrderDish, Dish, Recipe
+from cafe.views.views import UniversalListView
 
 
 class OrderListView(LoginRequiredMixin, UniversalListView):

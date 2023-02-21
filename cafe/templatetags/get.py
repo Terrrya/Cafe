@@ -1,7 +1,7 @@
 from django import template
-from cafe.models import Dish
 from django.db.models import QuerySet
 
+from cafe.models import Dish
 
 register = template.Library()
 

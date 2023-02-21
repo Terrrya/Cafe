@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import QuerySet
-from cafe.models import Order
 
+from cafe.models import Order
 
 register = template.Library()
 

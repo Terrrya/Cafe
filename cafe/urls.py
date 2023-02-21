@@ -1,5 +1,6 @@
-from django.urls import path
 from django.contrib.auth import views
+from django.urls import path
+
 from cafe.views.dish_type_views import (
     DishTypeCreateView,
     DishTypeListView,
@@ -21,12 +22,14 @@ from cafe.views.employee_views import (
     EmployeeDeleteView,
     dismissal_employee,
 )
+from cafe.views.home import home
 from cafe.views.ingredient_views import (
     IngredientCreateView,
     IngredientListView,
     IngredientUpdateView,
     IngredientDeleteView,
 )
+from cafe.views.order_dish_views import OrderDishCreateView
 from cafe.views.order_views import (
     OrderListView,
     OrderDeleteView,
@@ -48,8 +51,6 @@ from cafe.views.recipe_views import (
     RecipeUpdateView,
     RecipeDeleteView,
 )
-from cafe.views.home import home
-from cafe.views.order_dish_views import OrderDishCreateView
 
 app_name = "cafe"
 
