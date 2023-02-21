@@ -23,7 +23,7 @@ class OrderDishCreateView(LoginRequiredMixin, generic.CreateView):
             return HttpResponseRedirect(self.get_success_url())
         form_fields.order = get_object_or_404(Order, id=self.kwargs["pk"])
         form_fields.dish = get_object_or_404(
-            Order, name=self.request.POST["dish"]
+            Dish, name=self.request.POST["dish"]
         )
         recipe_ingredients = Recipe.objects.filter(
             dish__name=form_fields.dish.name
