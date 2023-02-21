@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -31,7 +31,7 @@ def create_new_order(
         request: HttpRequest, pk: int, create: str
 ) -> HttpResponse:
     if pk > 0:
-        order = Order.objects.get(id=pk)
+        order = get_object_or_404(Order, id=pk)
     else:
         for order in Order.objects.all():
             if not order.order_dish.all():
@@ -54,7 +54,7 @@ def create_new_order(
 
 @login_required
 def delivery(request: HttpRequest, pk: int, create: str) -> HttpResponse:
-    order = Order.objects.get(id=pk)
+    order = get_object_or_404(Order, id=pk)
     order.delivery = not order.delivery
     order.save()
     return redirect(
@@ -75,7 +75,7 @@ def select_dish(
 @login_required
 def cancel_order(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     if create == "create":
-        Order.objects.get(id=pk).delete()
+        get_object_or_404(Order, id=pk).delete()
     return redirect(reverse_lazy("cafe:dish-list"))
 
 
@@ -84,12 +84,12 @@ def delete_dish_from_order(
     request: HttpRequest, order_pk: int, order_dish_pk: int, create: str
 ) -> HttpResponse:
     recipe_ingredients = Recipe.objects.filter(
-        dish_id=OrderDish.objects.get(id=order_dish_pk).dish.id
+        dish_id=get_object_or_404(Order, id=order_dish_pk).dish.id
     )
     for recipe_ingredient in recipe_ingredients:
         recipe_ingredient.ingredient.amount_of += recipe_ingredient.amount
         recipe_ingredient.ingredient.save()
-    OrderDish.objects.get(id=order_dish_pk).delete()
+    get_object_or_404(Order, id=order_dish_pk).delete()
     return redirect(reverse_lazy("cafe:order-create", kwargs={
         "pk": order_pk, "create": create
     }))

@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
@@ -40,7 +41,7 @@ class EmployeeUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 @login_required
 def dismissal_employee(request: HttpRequest, pk: int) -> HttpResponse:
-    employee = Employee.objects.get(id=pk)
+    employee = get_object_or_404(Employee, pk=pk)
     if employee.date_of_dismissal is None:
         employee.date_of_dismissal = timezone.localdate(timezone.now())
     else:

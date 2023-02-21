@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -20,8 +21,10 @@ class OrderDishCreateView(LoginRequiredMixin, generic.CreateView):
                 self.request, "You should check at least 1 pc of dishes"
             )
             return HttpResponseRedirect(self.get_success_url())
-        form_fields.order = Order.objects.get(id=self.kwargs["pk"])
-        form_fields.dish = Dish.objects.get(name=self.request.POST["dish"])
+        form_fields.order = get_object_or_404(Order, id=self.kwargs["pk"])
+        form_fields.dish = get_object_or_404(
+            Order, name=self.request.POST["dish"]
+        )
         recipe_ingredients = Recipe.objects.filter(
             dish__name=form_fields.dish.name
         )

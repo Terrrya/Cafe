@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import ModelForm
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -13,7 +14,7 @@ class RecipeView(LoginRequiredMixin, generic.CreateView):
 
     def get_form(self, form_class: ModelForm = None) -> ModelForm:
         form = super(RecipeView, self).get_form()
-        dish = Dish.objects.get(id=self.kwargs["pk"])
+        dish = get_object_or_404(Dish, id=self.kwargs["pk"])
         form.fields["ingredient"].queryset = form.fields[
             "ingredient"
         ].queryset.exclude(name__in=dish.ingredients.values_list("name"))
@@ -21,7 +22,7 @@ class RecipeView(LoginRequiredMixin, generic.CreateView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super(RecipeView, self).get_context_data(**kwargs)
-        context["dish"] = Dish.objects.get(id=self.kwargs["pk"])
+        context["dish"] = get_object_or_404(Dish, id=self.kwargs["pk"])
         context["dish_recipe_ingredients"] = Recipe.objects.filter(
             dish=context["dish"]
         )
@@ -29,7 +30,7 @@ class RecipeView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form: ModelForm) -> ModelForm:
         form_fields = form.save(commit=False)
-        form_fields.dish = Dish.objects.get(id=self.kwargs["pk"])
+        form_fields.dish = get_object_or_404(Dish, id=self.kwargs["pk"])
         form_fields.save()
         return super().form_valid(form)
 
@@ -55,7 +56,7 @@ class RecipeUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_form(self, *args, **kwargs) -> ModelForm:
         form = super(RecipeUpdateView, self).get_form(*args, **kwargs)
-        recipe = Recipe.objects.get(id=self.kwargs["pk"])
+        recipe = get_object_or_404(Recipe, id=self.kwargs["pk"])
         new_queryset = form.fields["ingredient"].queryset.exclude(
             name__in=recipe.dish.ingredients.values_list("name")
         )
@@ -70,7 +71,7 @@ class RecipeUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super(RecipeUpdateView, self).get_context_data(**kwargs)
-        context["dish"] = Recipe.objects.get(id=self.kwargs["pk"]).dish
+        context["dish"] = get_object_or_404(Recipe, id=self.kwargs["pk"]).dish
         context["dish_recipe_ingredients"] = Recipe.objects.filter(
             dish=context["dish"]
         )
@@ -79,7 +80,9 @@ class RecipeUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self) -> str:
         return reverse_lazy(
             "cafe:dish-recipe",
-            kwargs={"pk": Recipe.objects.get(id=self.kwargs["pk"]).dish.id},
+            kwargs={
+                "pk": get_object_or_404(Recipe, id=self.kwargs["pk"]).dish.id
+            },
         )
 
 
@@ -89,5 +92,7 @@ class RecipeDeleteView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self) -> str:
         return reverse_lazy(
             "cafe:dish-recipe",
-            kwargs={"pk": Recipe.objects.get(id=self.kwargs["pk"]).dish.id},
+            kwargs={
+                "pk": get_object_or_404(Recipe, id=self.kwargs["pk"]).dish.id
+            },
         )
