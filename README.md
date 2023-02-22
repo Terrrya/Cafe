@@ -1,8 +1,8 @@
 # Cafe mangment system
 This project help restaurants, cafes, sushi-bars etc. manage their employee, warehouse, orders. You can manage menu with dishes and recipes for them, hire new employees and dismiss them, create orders and don't be afraid if ingredients not enough in the warehouse.
 
-![cafe_structure.svg](cafe_structure.svg)
-
+![Demo.png](Demo.png)
+![Demo2.png](Demo2.png)
 
 ## Check It
 
@@ -43,6 +43,6 @@ This project help restaurants, cafes, sushi-bars etc. manage their employee, war
 - Control for amount of ingredients
 - Admin panel for advanced managing
 
-## Demo
+## Structure
 
-![Demo.png](Demo.png)
+![cafe_structure.svg](cafe_structure.svg)
