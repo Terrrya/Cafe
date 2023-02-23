@@ -72,5 +72,5 @@ class OrderDishInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["created_at", "delivery", "total_price", "employee"]
+    list_display = ["created_at", "is_delivery", "total_price", "employee"]
     inlines = [OrderDishInline]

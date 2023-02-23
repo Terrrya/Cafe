@@ -38,7 +38,7 @@
               {{ order.total_price }}
             </td>
             <td class="align-middle">
-              {{ order.delivery|yesno:"Yes,No" }}
+              {{ order.is_delivery|yesno:"Yes,No" }}
             </td>
             <td class="align-middle">
               <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:order-create' pk=order.pk create='update' %}">Update order</a>

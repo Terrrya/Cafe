@@ -52,7 +52,7 @@
   {% endif %}
   <div class="ts">
     <a class="btn btn-sm btn-outline-primary ms-2 mb-2" href="{% url 'cafe:delivery' pk=order.id create=create %}">Delivery:</a>
-    <span class="ms-2 ts">{{ order.delivery|yesno:"Yes,No" }}</span>
+    <span class="ms-2 ts">{{ order.is_delivery|yesno:"Yes,No" }}</span>
   </div>
   {% if not object %}
     <div class="btn-group ms-2">

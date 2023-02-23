@@ -44,4 +44,4 @@ This project help restaurants, cafes, sushi-bars etc. manage their employee, war
 
 ## Structure
 
-![cafe_structure.svg](readme_img/cafe_structure.svg)
+![cafe_structure.svg](readme_img%2Fcafe_structure.svg)

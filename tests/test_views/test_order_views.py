@@ -134,25 +134,25 @@ class PrivateOrderTest(TestCase):
         )
         self.assertEqual(res.context["create"], "create")
 
-    def test_delivery_when_order_delivery_is_true(self):
-        self.test_order.delivery = True
+    def test_delivery_when_order_is_delivery_is_true(self):
+        self.test_order.is_delivery = True
         self.test_order.save()
         self.client.get(reverse(
             "cafe:delivery",
             kwargs={"pk": self.test_order.id, "create": "create"}
         ))
         self.test_order.refresh_from_db()
-        self.assertEqual(self.test_order.delivery, False)
+        self.assertEqual(self.test_order.is_delivery, False)
 
-    def test_delivery_when_order_delivery_is_false(self):
-        self.test_order.delivery = False
+    def test_delivery_when_order_is_delivery_is_false(self):
+        self.test_order.is_delivery = False
         self.test_order.save()
         self.client.get(reverse(
             "cafe:delivery",
             kwargs={"pk": self.test_order.id, "create": "create"}
         ))
         self.test_order.refresh_from_db()
-        self.assertEqual(self.test_order.delivery, True)
+        self.assertEqual(self.test_order.is_delivery, True)
 
     def test_delivery_redirect(self):
         res = self.client.post(reverse(
@@ -217,7 +217,7 @@ class PrivateOrderTest(TestCase):
             "order_dish_pk": self.test_dish.id,
             "create": "create"
         }))
-        self.assertRedirects(res, reverse_lazy(
+        self.assertRedirects(res, reverse(
             "cafe:order-create",
             kwargs={
                 "pk": self.test_order.id,

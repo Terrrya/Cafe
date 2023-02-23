@@ -89,7 +89,7 @@ class ModelsTests(TestCase):
         )
         test_order = Order.objects.create(
             created_at=timezone.localdate(timezone.now()),
-            delivery=False,
+            is_delivery=False,
             employee=test_employee
         )
         self.assertEqual(

@@ -55,7 +55,7 @@ def create_new_order(
 @login_required
 def delivery(request: HttpRequest, pk: int, create: str) -> HttpResponse:
     order = get_object_or_404(Order, id=pk)
-    order.delivery = not order.delivery
+    order.is_delivery = not order.is_delivery
     order.save()
     return redirect(
         reverse_lazy("cafe:order-create", kwargs={"pk": pk, "create": create})
