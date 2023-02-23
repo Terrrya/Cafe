@@ -4,12 +4,8 @@ from django.core.management import call_command
 from django.db import migrations
 
 
-def start_func(state, schema_editor):
-    call_command('loaddata', 'user_fixture.json')
-
-
-def reverse_start_func(state, schema_editor):
-    pass
+def fill_database_data(state, schema_editor):
+    call_command('loaddata', 'data_fixture.json')
 
 
 class Migration(migrations.Migration):
@@ -19,5 +15,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(start_func, reverse_start_func)
+        migrations.RunPython(fill_database_data)
     ]
