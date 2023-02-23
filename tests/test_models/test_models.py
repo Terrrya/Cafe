@@ -1,9 +1,11 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.utils import timezone
+
 from cafe.models import Position, DishType, Ingredient, Dish, Order
-from django.core.files.uploadedfile import SimpleUploadedFile
-from decimal import Decimal
 
 
 class ModelsTests(TestCase):

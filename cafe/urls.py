@@ -1,4 +1,3 @@
-from django.contrib.auth import views
 from django.urls import path
 
 from cafe.views.dish_type_views import (
@@ -55,7 +54,6 @@ from cafe.views.recipe_views import (
 app_name = "cafe"
 
 urlpatterns = [
-    # path("", views.LoginView.as_view(), name="index"),
     path("", home, name="home"),
     path(
         "positions/create/",

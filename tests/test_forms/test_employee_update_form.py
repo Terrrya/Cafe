@@ -1,8 +1,9 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from django.utils import timezone
+
 from cafe.forms import EmployeeUpdateForm
 from cafe.models import Position
-from django.utils import timezone
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class EmployeeUpdateFormTests(TestCase):

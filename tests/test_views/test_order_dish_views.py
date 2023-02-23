@@ -1,8 +1,9 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+
 from cafe.models import OrderDish, Ingredient, Order, Dish, DishType, Recipe
-from django.contrib.auth import get_user_model
-from django.contrib import messages
 
 
 class PublicOrderDishTest(TestCase):

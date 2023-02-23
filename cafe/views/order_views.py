@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 

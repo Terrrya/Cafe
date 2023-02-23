@@ -1,7 +1,8 @@
-from django.test import TestCase
-from cafe.models import Recipe, Dish, DishType, Ingredient
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 from django.urls import reverse
+
+from cafe.models import Recipe, Dish, DishType, Ingredient
 
 
 class PublicRecipeTest(TestCase):
