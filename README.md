@@ -1,8 +1,8 @@
 # Cafe mangment system
 This project help restaurants, cafes, sushi-bars etc. manage their employee, warehouse, orders. You can manage menu with dishes and recipes for them, hire new employees and dismiss them, create orders and don't be afraid if ingredients not enough in the warehouse.
 
-![Demo.png](Demo.png)
-![Demo2.png](Demo2.png)
+![Demo.png](readme_img/Demo.png)
+![Demo2.png](readme_img/Demo2.png)
 
 ## Check It
 
@@ -26,7 +26,9 @@ This project help restaurants, cafes, sushi-bars etc. manage their employee, war
     python manage.py runserver # starts Django server
     
     ```
-5. Fixtures will be upload automatically 
+5. Fixtures will be uploaded automatically 
+
+6. Don't forget to create and fill cafe/.env. How to fill it you can see in .env_sample
 
 6. After loading fixture you can use superuser:
     login: admin.user
@@ -42,4 +44,4 @@ This project help restaurants, cafes, sushi-bars etc. manage their employee, war
 
 ## Structure
 
-![cafe_structure.svg](cafe_structure.svg)
+![cafe_structure.svg](readme_img/cafe_structure.svg)
