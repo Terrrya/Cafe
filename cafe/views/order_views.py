@@ -84,12 +84,12 @@ def delete_dish_from_order(
     request: HttpRequest, order_pk: int, order_dish_pk: int, create: str
 ) -> HttpResponse:
     recipe_ingredients = Recipe.objects.filter(
-        dish_id=get_object_or_404(Order, id=order_dish_pk).dish.id
+        dish_id=get_object_or_404(OrderDish, id=order_dish_pk).dish.id
     )
     for recipe_ingredient in recipe_ingredients:
         recipe_ingredient.ingredient.amount_of += recipe_ingredient.amount
         recipe_ingredient.ingredient.save()
-    get_object_or_404(Order, id=order_dish_pk).delete()
+    get_object_or_404(OrderDish, id=order_dish_pk).delete()
     return redirect(reverse_lazy("cafe:order-create", kwargs={
         "pk": order_pk, "create": create
     }))
