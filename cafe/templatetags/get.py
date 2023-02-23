@@ -11,6 +11,5 @@ def get_dish(value: str) -> QuerySet:
     return (
         Dish.objects.filter(name__in=value)
         .select_related("dish_type")
-        .prefetch_related("orders")
-        .prefetch_related("ingredients__recipes")
+        .prefetch_related("orders", "ingredients__recipes")
     )
