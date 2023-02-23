@@ -117,7 +117,7 @@ class Order(models.Model):
         through="OrderDish",
         through_fields=["order", "dish"],
     )
-    delivery = models.BooleanField(default=False)
+    is_delivery = models.BooleanField(default=False)
     employee = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
