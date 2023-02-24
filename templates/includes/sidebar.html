@@ -4,9 +4,9 @@
 {% if request.user.is_authenticated %}
   <div class="dropdown vh-100 sidebar">
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item {% if cal %}nav-active{% endif %}">
+      <li class="nav-item {{ cal|yesno:"nav-active," }}">
         <a href="{% url 'cafe:home' %}" class="nav-link link-dark align-center" aria-current="page">
-          <svg class="bi me-2 {% if request.path|endswith:"home/" %} svg-active {% else %} nav-active {% endif %}" width="30" height="30"><use xlink:href="#home"></use></svg>
+          <svg class="bi me-2 {{ cal|yesno:"svg-active,nav-active" }}" width="30" height="30"><use xlink:href="#home"></use></svg>
           Home
         </a>
       </li>
