@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load not_none %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2 d-flex flex-row justify-content-between">
+      <h3 class="px-5">Employees</h3>
+      <h5 class="p-0 mb-1">
+        {% include "includes/search.html" %}
+      </h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped mb-0">
+        <tr>
+          <th>Full Name</th>
+          <th>Username</th>
+          <th>Position</th>
+          <th>Salary</th>
+          <th>Hiring date</th>
+          <th class="text-center">Date of dismissal</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% for employee in employee_list %}
+          {% if not employee.is_staff or request.user.is_staff%}
+            <tr>
+              <td>
+                {{ employee.first_name }} {{ employee.last_name }}
+              </td>
+              <td>
+                <a href="{% url 'cafe:employee-detail' pk=employee.id %}">{{ employee.username }}</a>
+              </td>
+              <td>
+                {{ employee.position|not_none }}
+              </td>
+              <td>
+                {{ employee.position.salary }}
+              </td>
+              <td>
+                {{ employee.hiring_date }}
+              </td>
+              <td class="text-center">
+                {% if employee.date_of_dismissal %}
+                  {{ employee.date_of_dismissal }}
+                {% else %}
+                  <a class="dismissal btn btn-outline-warning btn-sm mx-auto" href="{% url 'cafe:employee-dismissal' pk=employee.id %}">Dismiss</a>
+                {% endif %}
+              </td>
+              <td>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:employee-update' pk=employee.id %}">Update</a>
+              </td>
+              <td>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:employee-delete' pk=employee.id %}">Delete</a>
+              </td>
+            </tr>
+          {% endif %}
+       {% endfor %}
+      </table>
+    </div>
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

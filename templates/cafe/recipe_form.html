@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="card nav-active border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+      <h3 class="px-5">{{ object|yesno:"Update," }} {{ dish.name }} recipe</h3>
+    </div>
+    {% if dish_recipe_ingredients %}
+      <div class="dl m-2">
+        <table class="table">
+          <tr class="text-sm-center">
+            <th>Ingredient name</th>
+            <th>Amount</th>
+            <th>Update ingredient</th>
+            <th>Delete ingredient</th>
+          </tr>
+          {% for recipe in dish_recipe_ingredients %}
+            <tr class="text-sm-center">
+              <td class="text-start ps-5">{{ recipe.ingredient.name }}</td>
+              <td>{{ recipe.amount }}</td>
+              <td><a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:recipe-ingredient-update' pk=recipe.id %}">Update ingredient</a></td>
+              <td><a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:recipe-ingredient-delete' pk=recipe.id %}">Delete ingredient</a></td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% else %}
+      <div class="dl m-2">
+        <p class="p-3">There no ingredient in {{ dish.name }} recipe yet</p>
+      </div>
+    {% endif %}
+    {% if form.ingredient.field.queryset %}
+      <div class="dl mx-3 text-bg-danger">
+        <p class="p-0 px-5 mb-0">{{ object|yesno:"Update,Add" }} ingredients in {{ dish.name }} recipe</p>
+      </div>
+      {% include "includes/form.html" %}
+    {% else %}
+      <p class="form-control textinput mb-3">There no more ingredient in warehouse</p>
+    {% endif %}
+      <a class="btn btn-primary bg-gradient w-75 mx-auto mb-2" href="{% url 'cafe:dish-recipe-list' %}">Finish</a>
+  </div>
+{% endblock %}

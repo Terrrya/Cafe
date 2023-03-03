@@ -1,0 +1,15 @@
+{% load endswith %}
+{% load crispy_forms_filters %}
+
+<div class="card-body">
+  <form action="" method="post" novalidate enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if request.path|endswith:"recipe/" %}
+      <input class="btn btn-primary bg-gradient mx-2" type="Submit" value="{{ "Add" }}">
+    {% else %}
+      <input class="btn btn-primary bg-gradient mx-2" type="Submit" value="{{ object|yesno:"Update,Create" }}">
+    {% endif %}
+    <a class="btn btn-secondary bg-gradient mx-2" href="{{request.META.HTTP_REFERER}}">Back</a>
+  </form>
+</div>

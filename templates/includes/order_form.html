@@ -1,0 +1,63 @@
+<div class="mt-4">
+  <div class="card-top m-2">
+    <h3 class="ps-4">{% if create == "update" %}Update{% endif %} Order</h3>
+  </div>
+  {% if messages %}
+      {% for message in messages %}
+        <div class="text-bg-danger mx-2 mb-2">{{ message }}</div>
+      {% endfor %}
+  {% endif %}
+  {% if dish_list %}
+    <form action="{% url 'cafe:order-dish-create' pk=order.id %}" method="post" novalidate>
+      {% csrf_token %}
+      <div class="input-group input-group-sm mb-2 ps-2">
+        <div class="input-group-prepend">
+          <span class="form-control input-group-text ts">Dish:</span>
+        </div>
+        <div class="m-0 p-0">
+          <select name="dish" id="dish" class="form-control ps-2 form-select ms-1 me-5">
+            {% for dish in dish_list %}
+              <option value="{{ dish.name }}" {% if dish.id|stringformat:"s" == request.GET.dish|stringformat:"s" %}selected{% endif %}>{{ dish.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <input type="number" value="1" name="amount" class="me-2 ms-2 form-control">
+      </div>
+      <input type="text" value="{{ create }}" name="create" hidden>
+      <input type="submit" value="Add dish" class="btn btn-primary bg-gradient ms-2 mb-2 dish-text">
+    </form>
+  {% else %}
+    <p class="form-control textinput mb-3 dish-text">There are no more dishes in menu</p>
+  {% endif %}
+  {% if order_dish_list %}
+    <div class="dl mx-2 bg-white">
+      <table class="table">
+        {% for order_dish in order_dish_list %}
+          <tr class="ts">
+            <td>{{ order_dish.dish.name }}</td>
+            <td class="text-end">{{ order_dish.amount }}*{{ order_dish.dish.price }}</td>
+            <td><a class="btn btn-danger bg-gradient dish-text" href="{% url 'cafe:delete-dish-from-order' order_pk=order.id order_dish_pk=order_dish.pk create=create %}">del</a></td>
+          </tr>
+        {% endfor %}
+        <tr class="ts">
+          <td class="text-end">total price:</td>
+          <td class="text-end">{{ order.total_price }}</td>
+        </tr>
+      </table>
+    </div>
+  {% else %}
+    <div class="dl m-2 bg-white">
+      <p class="p-3">There are no dish in order yet</p>
+    </div>
+  {% endif %}
+  <div class="ts">
+    <a class="btn btn-sm btn-outline-primary ms-2 mb-2" href="{% url 'cafe:delivery' pk=order.id create=create %}">Delivery:</a>
+    <span class="ms-2 ts">{{ order.is_delivery|yesno:"Yes,No" }}</span>
+  </div>
+  {% if not object %}
+    <div class="btn-group ms-2">
+      <a class="btn btn-primary bg-gradient w-75 mx-auto" href="{% url 'cafe:dish-list' %}">{% if create == "update" %}Update{% else %}Create{% endif %}</a>
+      <a class="btn btn-secondary bg-gradient w-75 mx-auto ms-2" href="{% url 'cafe:order-cancel' pk=order.id create=create%}">Cancel</a>
+    </div>
+  {% endif %}
+</div>
