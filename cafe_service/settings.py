@@ -174,19 +174,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # AWS S3 Bucket Configurations
 
 if not DEBUG:
-
-    AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
-
-    AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-
-    AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
-
-    AWS_S3_FILE_OVERWRITE = False
-
-    AWS_DEFAULT_ACL = None
-
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-
-    AWS_S3_REGION_NAME = "eu-central-1"
-
-    AWS_S3_ADDRESSING_STYLE = "virtual"
+    DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
+    DROPBOX_OAUTH2_TOKEN = os.environ.get("DROPBOX_OAUTH2_TOKEN")
+    DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
+    DROPBOX_APP_SECRET = os.environ.get("DROPBOX_APP_SECRET")
+    DROPBOX_OAUTH2_REFRESH_TOKEN = os.environ.get(
+        "DROPBOX_OAUTH2_REFRESH_TOKEN")
+    DROPBOX_ROOT_PATH = "/"
