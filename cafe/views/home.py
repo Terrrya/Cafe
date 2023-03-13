@@ -44,7 +44,7 @@ def home(request: HttpRequest) -> HttpResponse:
         popular_dish = dishes.first()
         unpopular_dish = popular_dish
         popular_count = 0
-        unpopular_count = popular_dish.orders.count()
+        unpopular_count = unpopular_dish.orders.count()
         for dish in dishes:
             popularity = dish.orders.count()
             if popular_count < popularity:
