@@ -31,7 +31,8 @@ def order_total_price_income(
         orders = Order.objects.filter(**{f"created_at__{key}": value})
         return sum(order.total_price for order in orders)
     return sum(
-        order.total_price for order in Order.objects.filter(created_at=value)
+        order.total_price
+        for order in Order.objects.filter(created_at__icontains=value)
     )
 
 
@@ -58,8 +59,10 @@ def home(request: HttpRequest) -> HttpResponse:
     month = timezone.localdate(timezone.now()).month
     cal = Calendar().formatmonth(theyear=year, themonth=month)
     week_income = order_total_price_income(key="week", value=week)
-    today_income = order_total_price_income(timezone.localdate(timezone.now()))
     month_income = order_total_price_income(key="month", value=month)
+    today_income = order_total_price_income(
+        value=timezone.localdate(timezone.now())
+    )
     context = {
         "cal": cal,
         "unpopular_dish": unpopular_dish,
