@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% load not_none %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+      <h3 class="px-5">{{ employee.first_name }} {{ employee.last_name }}</h3>
+    </div>
+    <div class="card-body d-flex d-flex-row justify-content-between">
+      <div class="ts fix">
+        <p>Username:</p>
+        <p>Email:</p>
+        <p>Position:</p>
+        <p>Salary:</p>
+        <p>Hiring date:</p>
+        <p>Date of dismissal:</p>
+      </div>
+      <div class="container">
+        <div class="dl">
+          <p class="px-2">{{ employee.username|not_none }}</p>
+        </div>
+        <div class="dl">
+          <p class="px-2">{{ employee.email|not_none }}</p>
+        </div>
+        <div class="dl">
+          <p class="px-2">{{ employee.position|not_none }}</p>
+        </div>
+        <div class="dl">
+          <p class="px-2">{{ employee.position.salary|not_none }}</p>
+        </div>
+        <div class="dl">
+          <p class="px-2">{{ employee.hiring_date|not_none }}</p>
+        </div>
+        <div class="dl">
+          <p class="px-2">{{ employee.date_of_dismissal|not_none }}</p>
+        </div>
+      </div>
+      <div class="fix">
+        <div class="container m-0 p-0">
+        {% if employee.date_of_dismissal is not None %}
+          <img class="img-fluid" src="{% static 'img/fired.png' %}" alt="Fired">
+        {% else %}
+          <img class="img-fluid" src="{% if employee.image %}{{ employee.image.url }}{% endif %}" alt="Avatar">
+        {% endif %}
+
+        </div></div>
+    </div>
+    <div class="btn-group">
+      <a class="btn btn-primary bg-gradient pt-1 m-2" href="{% url 'cafe:employee-update' pk=employee.id %}">Update</a>
+      <a class="btn btn-warning bg-gradient pt-1 m-2" href="{% url 'cafe:employee-dismissal' pk=employee.id %}">
+        {{ employee.date_of_dismissal|yesno:"Hire,Dismiss" }}
+      </a>
+      <a class="btn btn-secondary bg-gradient pt-1 m-2" href="{{request.META.HTTP_REFERER}}">Back</a>
+      <a class="btn btn-danger bg-gradient pt-1 m-2" href="{% url 'cafe:employee-delete' pk=employee.id %}">Delete</a>
+    </div>
+  </div>
+{% endblock %}

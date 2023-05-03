@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load not_none %}
+{% load queryset_filter %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2 d-flex flex-row justify-content-between">
+      <h3 class="ps-5">Orders</h3>
+      <h5 class="p-0 mb-1">
+        {% include "includes/search.html" %}
+      </h5>
+    </div>
+    <div class="card-body">
+      <table  class="table table-striped mb-0">
+        <tr>
+          <th>Employee</th>
+          <th>Order created at</th>
+          <th>Dishes</th>
+          <th>Total price</th>
+          <th>Delivery</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% for order in order_list %}
+          <tr>
+            <td class="align-middle">
+              {{ order.employee.first_name }} {{ order.employee.last_name }}
+              <p>position: {{ order.employee.position|not_none }}</p>
+            </td>
+            <td class="align-middle">
+              {{ order.created_at }}
+            </td>
+            <td>
+              {% for order_dish in order_dishes_list|queryset_filter_order:order %}
+                <p class="p-0 m-0">{{ order_dish.dish.name }}: {{ order_dish.amount }}</p>
+              {% endfor %}
+            </td>
+            <td class="align-middle">
+              {{ order.total_price }}
+            </td>
+            <td class="align-middle">
+              {{ order.is_delivery|yesno:"Yes,No" }}
+            </td>
+            <td class="align-middle">
+              <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:order-create' pk=order.pk create='update' %}">Update order</a>
+            </td>
+            <td class="align-middle">
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:order-delete' pk=order.pk %}">Delete order</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load get %}
+{% block content %}
+  <div class="card border-0 mt-4">
+    <div class="card-top pt-1 m-2 d-flex flex-row justify-content-between">
+      <h3 class="ps-5">Recipe Book</h3>
+      <h5 class="p-0 mb-1">
+        {% include "includes/search.html" %}
+      </h5>
+    </div>
+    <div class="card-body">
+      <table  class="table table-striped mb-0">
+        <tr>
+          <th>Dish name</th>
+          <th>Ingredients</th>
+          <th>Popularity</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        {% with recipe_list|get_dish as dish_list %}
+          {% for dish in dish_list %}
+            <tr>
+              <td class="align-middle">
+                {{ dish.name }}
+              </td>
+              <td>
+                {% for recipe in dish.recipe.select_related %}
+                  <p class="p-0 m-0">{{ recipe.ingredient.name }}: {{ recipe.amount}}</p>
+                {% endfor %}
+              </td>
+              <td class="align-middle">
+                {{ dish.orders.count }}
+              </td>
+              <td class="align-middle">
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'cafe:dish-update' pk=dish.id %}">Update dish</a>
+              </td>
+              <td class="align-middle">
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'cafe:dish-delete' pk=dish.id %}">Delete dish</a>
+              </td>
+            </tr>
+
+        {% endfor %} {% endwith %}
+      </table>
+    </div>
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}

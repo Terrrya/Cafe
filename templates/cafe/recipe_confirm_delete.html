@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card nav-active border-0 mt-4">
+    <div class="card-top pt-1 m-2">
+      <h3 class="px-5">Deleting ingredient</h3>
+    </div>
+    <div class="card-body">
+      <p>Are you sure you want to delete ingredient {{ recipe.ingredient.name }} from {{ recipe.dish.name }} recipe</p>
+      {% include "includes/form_delete.html" %}
+    </div>
+  </div>
+{% endblock %}
