@@ -31,9 +31,9 @@ This project help restaurants, cafes, sushi-bars etc. manage their employee, war
 6. Don't forget to create and fill cafe/.env. How to fill it you can see in .env_sample
 
 7. After loading fixture you can use superuser:
-    login: admin.user
-    pass: 1qazcde3
-    Or you always can create new superuser/employee to use.
+    <br>login: admin.user
+    <br>pass: 1qazcde3
+    <br>Or you always can create new superuser/employee to use.
 
 ## Features
 
